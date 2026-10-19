@@ -1,0 +1,4859 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>SRTNP Counseling Month 2026: Central Portal</title>
+  <meta name="description" content="Official Central Portal for SRTNP Counseling Month 2026: Stride 10K Step Tracker, Live Cumulative Leaderboard, Event Announcements, and Admin Moderation." />
+  <meta property="og:title" content="SRTNP Counseling Month 2026: Central Portal" />
+  <meta property="og:description" content="Stride 10K Challenge, Smash & Connect, Paddle Up, and Burnout Talk at The Rhu Resort." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Firebase Compatibility SDK via CDN as specified -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <!-- YouTube IFrame API Bootstrap with resilient pre-callback -->
+  <script>
+    window.__ytReady = false;
+    window.onYouTubeIframeAPIReady = function() {
+      window.__ytReady = true;
+      if (typeof window.__initYouTubeAudio === 'function') {
+        try { window.__initYouTubeAudio(); } catch (e) {}
+      }
+    };
+  </script>
+  <script async src="https://www.youtube.com/iframe_api"></script>
+
+  <style>
+    /* TRON LEGACY SPORTY CYBER-SLEEK THEME */
+    :root {
+      --bg-dark: #0b0d17;
+      --bg-card: rgba(15, 20, 36, 0.88);
+      --bg-card-hover: rgba(22, 30, 54, 0.95);
+      --neon-mint: #00ffcc;
+      --neon-mint-glow: rgba(0, 255, 204, 0.4);
+      --neon-purple: #b026ff;
+      --neon-purple-glow: rgba(176, 38, 255, 0.45);
+      --neon-blue: #00d2ff;
+      --neon-blue-glow: rgba(0, 210, 255, 0.4);
+      --neon-gold: #ffd700;
+      --neon-coral: #ff3366;
+      --text-main: #f0f4fc;
+      --text-muted: #8c9bb5;
+      --border-cyber: rgba(0, 255, 204, 0.22);
+      --border-purple: rgba(176, 38, 255, 0.35);
+      --border-blue: rgba(0, 210, 255, 0.3);
+      --header-height: 96px;
+      --bottom-nav-height: 60px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Century Gothic', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif, system-ui;
+      height: 100%;
+    }
+
+    body {
+      min-height: 100%;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      overflow-x: hidden;
+      position: relative;
+      font-family: 'Century Gothic', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif, system-ui;
+      -webkit-font-smoothing: antialiased;
+      width: 100%;
+    }
+
+    /* Interactive HTML5 Background Canvas */
+    #tronCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.65;
+    }
+
+    /* TOP STICKY HEADER & CONTINUOUS HORIZONTAL MARQUEE TICKER */
+    .sticky-header-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(11, 13, 23, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-cyber);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7), 0 1px 0 rgba(0, 255, 204, 0.2);
+    }
+
+    /* Continuous horizontal moving announcement ticker */
+    .marquee-wrapper {
+      background: var(--neon-purple);
+      color: var(--neon-mint);
+      overflow: hidden;
+      white-space: nowrap;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      border-bottom: 1px solid rgba(0, 255, 204, 0.4);
+      box-shadow: 0 2px 10px rgba(176, 38, 255, 0.4);
+    }
+
+    .marquee-badge {
+      background: #0b0d17;
+      color: var(--neon-mint);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 0 10px;
+      height: 100%;
+      display: inline-flex;
+      align-items: center;
+      z-index: 2;
+      box-shadow: 4px 0 10px rgba(0,0,0,0.5);
+      border-right: 1px solid var(--neon-mint);
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .marquee-track {
+      display: inline-block;
+      white-space: nowrap;
+      padding-left: 100%;
+      animation: marqueeContinuous 38s linear infinite;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
+      user-select: none;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes marqueeContinuous {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+      100% {
+        transform: translate3d(-100%, 0, 0);
+      }
+    }
+
+    /* Main Navigation Bar */
+    .main-nav {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 52px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+      min-width: 0;
+    }
+
+    /* Official School Logo Container */
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: rgba(11, 13, 23, 0.9);
+      border: 1px solid var(--neon-mint);
+      box-shadow: 0 0 10px var(--neon-mint-glow);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      padding: 2px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .brand-icon:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 16px var(--neon-mint);
+    }
+
+    .brand-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 4px var(--neon-mint-glow));
+    }
+
+    .brand-title {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-subtitle {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: var(--neon-blue);
+      text-shadow: 0 0 6px var(--neon-blue-glow);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 6px 8px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--neon-mint);
+      text-shadow: 0 0 8px var(--neon-mint-glow);
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 8px;
+      right: 8px;
+      height: 2px;
+      background: var(--neon-mint);
+      box-shadow: 0 0 8px var(--neon-mint);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Staff Identity Pill in Header */
+    .staff-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 210, 255, 0.08);
+      border: 1px solid var(--border-blue);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      color: var(--neon-blue);
+      max-width: 150px;
+    }
+
+    .staff-badge-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .staff-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--neon-mint);
+      box-shadow: 0 0 6px var(--neon-mint);
+      flex-shrink: 0;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+      white-space: nowrap;
+      text-decoration: none;
+      min-height: 38px;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-mint {
+      background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), rgba(0, 255, 204, 0.05));
+      border-color: var(--neon-mint);
+      color: var(--neon-mint);
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+    }
+
+    .btn-mint:hover {
+      background: var(--neon-mint);
+      color: #0b0d17;
+      box-shadow: 0 0 25px rgba(0, 255, 204, 0.6);
+    }
+
+    .btn-purple {
+      background: linear-gradient(135deg, rgba(176, 38, 255, 0.25), rgba(176, 38, 255, 0.08));
+      border-color: var(--neon-purple);
+      color: #e5b3ff;
+      box-shadow: 0 0 15px rgba(176, 38, 255, 0.25);
+    }
+
+    .btn-purple:hover {
+      background: var(--neon-purple);
+      color: #ffffff;
+      box-shadow: 0 0 25px rgba(176, 38, 255, 0.7);
+    }
+
+    .btn-blue {
+      background: linear-gradient(135deg, rgba(0, 210, 255, 0.2), rgba(0, 210, 255, 0.05));
+      border-color: var(--neon-blue);
+      color: var(--neon-blue);
+      box-shadow: 0 0 15px rgba(0, 210, 255, 0.25);
+    }
+
+    .btn-blue:hover {
+      background: var(--neon-blue);
+      color: #0b0d17;
+      box-shadow: 0 0 25px rgba(0, 210, 255, 0.6);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text-muted);
+    }
+
+    .btn-outline:hover {
+      border-color: #ffffff;
+      color: #ffffff;
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      min-height: 32px;
+    }
+
+    /* Main Layout */
+    .app-container {
+      position: relative;
+      z-index: 10;
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: calc(var(--header-height) + 16px) 16px 80px 16px;
+      width: 100%;
+    }
+
+    /* Cyber Card Surfaces */
+    .cyber-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-cyber);
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cyber-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-mint), transparent);
+      opacity: 0.8;
+    }
+
+    .cyber-card-purple {
+      border-color: var(--border-purple);
+    }
+    .cyber-card-purple::before {
+      background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+    }
+
+    .cyber-card-blue {
+      border-color: var(--border-blue);
+    }
+    .cyber-card-blue::before {
+      background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+    }
+
+    /* Hero Banner Area */
+    .hero-section {
+      margin-bottom: 32px;
+      padding: 28px 24px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+      background: radial-gradient(circle at 10% 20%, rgba(176, 38, 255, 0.12) 0%, rgba(11, 13, 23, 0.85) 60%),
+                  radial-gradient(circle at 90% 80%, rgba(0, 255, 204, 0.1) 0%, transparent 50%),
+                  var(--bg-card);
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--neon-mint);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      text-shadow: 0 0 8px var(--neon-mint-glow);
+    }
+
+    .hero-title {
+      font-size: clamp(22px, 3.5vw, 36px);
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      color: #ffffff;
+      text-wrap: balance;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--neon-mint), var(--neon-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+    }
+
+    .hero-desc {
+      color: #a4b3cf;
+      font-size: 14px;
+      line-height: 1.55;
+      margin-bottom: 20px;
+      max-width: 580px;
+    }
+
+    .hero-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .hero-stat-card {
+      background: rgba(11, 13, 23, 0.7);
+      border: 1px solid rgba(0, 210, 255, 0.2);
+      border-radius: 10px;
+      padding: 12px 8px;
+      text-align: center;
+    }
+
+    .hero-stat-val {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--neon-mint);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 2px;
+      text-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
+    }
+
+    .hero-stat-lbl {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 600;
+    }
+
+    /* Section Headers */
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .section-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .section-kicker {
+      font-size: 10px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--neon-blue);
+      text-shadow: 0 0 6px var(--neon-blue-glow);
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* SECTION 1: PROGRAM EVENT CARDS (Anime/Comic Vector Aesthetic) */
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .event-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border-cyber);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .event-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.8), 0 0 15px var(--neon-mint-glow);
+      border-color: var(--neon-mint);
+    }
+
+    .event-banner-wrap {
+      position: relative;
+      height: 160px;
+      width: 100%;
+      background: #0f1426;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .event-banner-svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .event-card:hover .event-banner-svg {
+      transform: scale(1.04);
+    }
+
+    .event-badge-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(11, 13, 23, 0.9);
+      border: 1px solid var(--neon-mint);
+      color: var(--neon-mint);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .event-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .event-date-row {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: var(--neon-blue);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .event-card-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .event-meta-list {
+      list-style: none;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 12px;
+      color: #b0bfdb;
+      flex-grow: 1;
+    }
+
+    .event-meta-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .event-meta-icon {
+      color: var(--neon-mint);
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .event-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* SECTION 2 & 3 CONTAINER SPLIT (TABLET & MOBILE RESPONSIVE) */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* STEP TRACKER MODULE */
+    .tracker-card {
+      padding: 22px;
+    }
+
+    .user-profile-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(11, 13, 23, 0.7);
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      gap: 8px;
+    }
+
+    .user-profile-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .user-avatar-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), rgba(176, 38, 255, 0.3));
+      border: 1px solid var(--neon-mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--neon-mint);
+      box-shadow: 0 0 8px var(--neon-mint-glow);
+      flex-shrink: 0;
+    }
+
+    .user-name-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-sub-meta {
+      font-size: 11px;
+      color: var(--neon-blue);
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Form Inputs */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #cfd8ea;
+      margin-bottom: 5px;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      background: rgba(8, 10, 18, 0.85);
+      border: 1px solid rgba(0, 255, 204, 0.25);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 13px;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--neon-mint);
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.35);
+      background: rgba(8, 10, 18, 0.98);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* File Upload Area */
+    .file-upload-box {
+      border: 2px dashed rgba(0, 255, 204, 0.3);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+      background: rgba(0, 255, 204, 0.03);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .file-upload-box:hover {
+      border-color: var(--neon-mint);
+      background: rgba(0, 255, 204, 0.06);
+    }
+
+    .file-upload-icon {
+      font-size: 22px;
+      margin-bottom: 4px;
+      color: var(--neon-mint);
+    }
+
+    .file-upload-text {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .file-upload-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .preview-box {
+      display: none;
+      margin-top: 10px;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--neon-mint);
+      max-height: 140px;
+      width: 100%;
+    }
+
+    .preview-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+
+    .preview-remove {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(11, 13, 23, 0.85);
+      color: var(--neon-coral);
+      border: 1px solid var(--neon-coral);
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Personal Progress Bar */
+    .user-progress-panel {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .progress-bar-container {
+      height: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--neon-blue), var(--neon-mint));
+      box-shadow: 0 0 10px var(--neon-mint);
+      border-radius: 5px;
+      width: 0%;
+      transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* SECTION 3: LEADERBOARD TABLE */
+    .leaderboard-card {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .leaderboard-filter-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      background: rgba(11, 13, 23, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-tab.active, .filter-tab:hover {
+      background: rgba(0, 255, 204, 0.15);
+      border-color: var(--neon-mint);
+      color: var(--neon-mint);
+    }
+
+    /* ==================================================== */
+    /* TRON PODIUM BAR RANKING (TOP 3 CONTENDERS) */
+    /* ==================================================== */
+    .podium-section {
+      margin-bottom: 20px;
+      background: rgba(11, 13, 23, 0.65);
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 12px;
+      padding: 16px 12px 10px 12px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .podium-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-mint), var(--neon-blue), transparent);
+    }
+
+    .podium-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .podium-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--neon-mint);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-shadow: 0 0 8px var(--neon-mint-glow);
+    }
+
+    .podium-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr 1fr;
+      align-items: flex-end;
+      gap: 8px;
+      min-height: 230px;
+    }
+
+    .podium-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-width: 0;
+    }
+
+    .podium-card {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .podium-crown-tag {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-bottom: 6px;
+      white-space: nowrap;
+    }
+
+    .podium-1 .podium-crown-tag {
+      background: rgba(255, 215, 0, 0.15);
+      border: 1px solid var(--neon-gold);
+      color: var(--neon-gold);
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    }
+
+    .podium-2 .podium-crown-tag {
+      background: rgba(0, 210, 255, 0.15);
+      border: 1px solid var(--neon-blue);
+      color: var(--neon-blue);
+      box-shadow: 0 0 8px var(--neon-blue-glow);
+    }
+
+    .podium-3 .podium-crown-tag {
+      background: rgba(176, 38, 255, 0.15);
+      border: 1px solid var(--neon-purple);
+      color: #e5b3ff;
+      box-shadow: 0 0 8px var(--neon-purple-glow);
+    }
+
+    .podium-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 13px;
+      margin-bottom: 5px;
+      position: relative;
+    }
+
+    .podium-1 .podium-avatar {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(0, 255, 204, 0.3));
+      border: 2px solid var(--neon-mint);
+      color: var(--neon-mint);
+      box-shadow: 0 0 14px var(--neon-mint-glow);
+    }
+
+    .podium-2 .podium-avatar {
+      background: linear-gradient(135deg, rgba(0, 210, 255, 0.25), rgba(255, 255, 255, 0.15));
+      border: 2px solid var(--neon-blue);
+      color: var(--neon-blue);
+      box-shadow: 0 0 10px var(--neon-blue-glow);
+    }
+
+    .podium-3 .podium-avatar {
+      background: linear-gradient(135deg, rgba(176, 38, 255, 0.25), rgba(255, 102, 204, 0.15));
+      border: 2px solid var(--neon-purple);
+      color: #e5b3ff;
+      box-shadow: 0 0 10px var(--neon-purple-glow);
+    }
+
+    .podium-name {
+      font-size: 12px;
+      font-weight: 800;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      padding: 0 4px;
+    }
+
+    .podium-1 .podium-name {
+      font-size: 13px;
+      color: #ffffff;
+    }
+
+    .podium-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .podium-steps {
+      font-size: 13px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+    }
+
+    .podium-1 .podium-steps {
+      color: var(--neon-mint);
+      font-size: 15px;
+      text-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+    }
+
+    .podium-2 .podium-steps {
+      color: var(--neon-blue);
+      text-shadow: 0 0 8px var(--neon-blue-glow);
+    }
+
+    .podium-3 .podium-steps {
+      color: #e5b3ff;
+      text-shadow: 0 0 8px var(--neon-purple-glow);
+    }
+
+    .podium-steps-label {
+      font-size: 9px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* The 3D-effect Tron Pillar Bar */
+    .podium-pillar {
+      width: 100%;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .podium-pillar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .podium-1 .podium-pillar {
+      height: 125px;
+      background: linear-gradient(180deg, rgba(0, 255, 204, 0.28) 0%, rgba(11, 13, 23, 0.95) 100%);
+      border: 1px solid var(--neon-mint);
+      border-bottom: none;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.25), inset 0 0 15px rgba(0, 255, 204, 0.15);
+    }
+    .podium-1 .podium-pillar::after {
+      background: var(--neon-mint);
+      box-shadow: 0 0 10px var(--neon-mint);
+    }
+
+    .podium-2 .podium-pillar {
+      height: 95px;
+      background: linear-gradient(180deg, rgba(0, 210, 255, 0.24) 0%, rgba(11, 13, 23, 0.95) 100%);
+      border: 1px solid var(--neon-blue);
+      border-bottom: none;
+      box-shadow: 0 0 15px rgba(0, 210, 255, 0.2), inset 0 0 12px rgba(0, 210, 255, 0.1);
+    }
+    .podium-2 .podium-pillar::after {
+      background: var(--neon-blue);
+      box-shadow: 0 0 8px var(--neon-blue);
+    }
+
+    .podium-3 .podium-pillar {
+      height: 75px;
+      background: linear-gradient(180deg, rgba(176, 38, 255, 0.22) 0%, rgba(11, 13, 23, 0.95) 100%);
+      border: 1px solid var(--neon-purple);
+      border-bottom: none;
+      box-shadow: 0 0 15px rgba(176, 38, 255, 0.2), inset 0 0 12px rgba(176, 38, 255, 0.1);
+    }
+    .podium-3 .podium-pillar::after {
+      background: var(--neon-purple);
+      box-shadow: 0 0 8px var(--neon-purple);
+    }
+
+    .podium-number {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1;
+      opacity: 0.9;
+    }
+
+    .podium-1 .podium-number {
+      color: var(--neon-mint);
+      text-shadow: 0 0 12px var(--neon-mint);
+    }
+
+    .podium-2 .podium-number {
+      color: var(--neon-blue);
+      text-shadow: 0 0 10px var(--neon-blue);
+    }
+
+    .podium-3 .podium-number {
+      color: #e5b3ff;
+      text-shadow: 0 0 10px var(--neon-purple);
+    }
+
+    .podium-pct {
+      font-size: 10px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-top: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .podium-empty-col {
+      opacity: 0.45;
+    }
+    .podium-empty-col .podium-pillar {
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      background: rgba(11, 13, 23, 0.5);
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+
+    .table-scroll-hint {
+      display: none;
+      font-size: 10px;
+      color: var(--neon-mint);
+      margin-bottom: 6px;
+      text-align: right;
+    }
+
+    .cyber-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 6px;
+      font-size: 12px;
+    }
+
+    .cyber-table th {
+      padding: 8px 10px;
+      text-align: left;
+      font-size: 10px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 700;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      white-space: nowrap;
+    }
+
+    .cyber-table tr.table-row {
+      background: rgba(14, 18, 32, 0.85);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .cyber-table tr.table-row:hover {
+      background: rgba(20, 26, 48, 0.95);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .cyber-table td {
+      padding: 10px 10px;
+      vertical-align: middle;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      white-space: nowrap;
+    }
+
+    .cyber-table td:first-child {
+      border-left: 1px solid rgba(255, 255, 255, 0.04);
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+
+    .cyber-table td:last-child {
+      border-right: 1px solid rgba(255, 255, 255, 0.04);
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+
+    /* Rank Badges */
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      font-weight: 900;
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .rank-1 {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(0, 255, 204, 0.3));
+      border: 1px solid var(--neon-mint);
+      color: var(--neon-mint);
+      box-shadow: 0 0 10px var(--neon-mint-glow);
+    }
+
+    .rank-2 {
+      background: linear-gradient(135deg, rgba(0, 210, 255, 0.3), rgba(255, 255, 255, 0.15));
+      border: 1px solid var(--neon-blue);
+      color: var(--neon-blue);
+      box-shadow: 0 0 10px var(--neon-blue-glow);
+    }
+
+    .rank-3 {
+      background: linear-gradient(135deg, rgba(176, 38, 255, 0.3), rgba(255, 102, 204, 0.2));
+      border: 1px solid var(--neon-purple);
+      color: #e5b3ff;
+      box-shadow: 0 0 10px var(--neon-purple-glow);
+    }
+
+    .rank-other {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+    }
+
+    .staff-cell-name {
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 13px;
+    }
+
+    .staff-cell-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .step-number-cell {
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--neon-mint);
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 6px rgba(0, 255, 204, 0.3);
+    }
+
+    /* ALL MODALS: TABLET & MOBILE SAFE SCROLLING */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 7, 14, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 2000;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 16px 12px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #0f1324;
+      border: 1px solid var(--neon-purple);
+      border-radius: 16px;
+      box-shadow: 0 0 35px rgba(176, 38, 255, 0.35), 0 20px 50px rgba(0, 0, 0, 0.9);
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 24px 20px;
+      position: relative;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+
+    .modal-close-btn:hover {
+      border-color: var(--neon-coral);
+      color: var(--neon-coral);
+    }
+
+    .admin-auth-box {
+      max-width: 420px;
+      margin: 20px auto;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .admin-tab-nav {
+      display: flex;
+      gap: 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 18px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+
+    .admin-tab-btn {
+      padding: 8px 14px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .admin-tab-btn.active {
+      color: var(--neon-purple);
+      border-bottom-color: var(--neon-purple);
+      text-shadow: 0 0 8px var(--neon-purple-glow);
+    }
+
+    /* Proof Image Modal Viewer */
+    .proof-viewer-modal .modal-card {
+      max-width: 540px;
+      text-align: center;
+      border-color: var(--neon-mint);
+      box-shadow: 0 0 35px var(--neon-mint-glow);
+    }
+
+    .proof-img-display {
+      max-width: 100%;
+      max-height: 420px;
+      border-radius: 10px;
+      border: 1px solid var(--border-cyber);
+      margin-top: 12px;
+      object-fit: contain;
+      background: #000;
+    }
+
+    /* SCREEN A: REGISTRATION OVERLAY */
+    .registration-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(7, 9, 18, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 1500;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 16px 12px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .registration-overlay.active {
+      display: flex;
+    }
+
+    .registration-box {
+      max-width: 480px;
+      width: 100%;
+      margin: auto;
+      background: #0f1426;
+      border: 1px solid var(--neon-mint);
+      box-shadow: 0 0 40px var(--neon-mint-glow), 0 20px 60px rgba(0, 0, 0, 0.9);
+      border-radius: 18px;
+      padding: 28px 22px;
+      position: relative;
+    }
+
+    /* MOBILE BOTTOM NAVIGATION BAR */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--bottom-nav-height);
+      background: rgba(11, 13, 23, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border-cyber);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.8);
+      z-index: 999;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      padding: 0 6px;
+    }
+
+    .mobile-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: var(--text-muted);
+      text-decoration: none;
+      height: 100%;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile-nav-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .mobile-nav-item.active, .mobile-nav-item:hover {
+      color: var(--neon-mint);
+      text-shadow: 0 0 8px var(--neon-mint-glow);
+    }
+
+    /* Toast Notification */
+    .toast-notice {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 3000;
+      background: #10162a;
+      border: 1px solid var(--neon-mint);
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 15px var(--neon-mint-glow);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      font-size: 12px;
+      font-weight: 600;
+      max-width: 90vw;
+    }
+
+    /* MINIMALIST TRON THEME SONG PLAYER CAPSULE */
+    .cyber-music-capsule {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1050;
+      background: rgba(11, 13, 23, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(0, 255, 204, 0.4);
+      border-radius: 24px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 255, 204, 0.18);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 255px;
+      max-width: calc(100vw - 32px);
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      .cyber-music-capsule {
+        bottom: 72px;
+        left: 12px;
+        width: 240px;
+      }
+    }
+
+    .cyber-music-capsule.playing {
+      border-color: var(--neon-mint);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.85), 0 0 20px var(--neon-mint-glow);
+    }
+
+    .music-capsule-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px;
+      min-height: 40px;
+      background: rgba(15, 20, 36, 0.95);
+    }
+
+    .music-play-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0, 255, 204, 0.15);
+      border: 1.5px solid var(--neon-mint);
+      color: var(--neon-mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      box-shadow: 0 0 8px rgba(0, 255, 204, 0.3);
+    }
+
+    .music-play-btn:hover {
+      background: var(--neon-mint);
+      color: #0b0d17;
+      transform: scale(1.05);
+    }
+
+    .cyber-music-capsule.playing .music-play-btn {
+      background: var(--neon-mint);
+      color: #0b0d17;
+    }
+
+    .music-play-icon {
+      font-size: 11px;
+      margin-left: 2px;
+      line-height: 1;
+    }
+
+    .cyber-music-capsule.playing .music-play-icon {
+      margin-left: 0;
+      font-size: 11px;
+    }
+
+    /* 4-Bar Equalizer */
+    .music-eq {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 14px;
+      width: 12px;
+      flex-shrink: 0;
+    }
+
+    .eq-bar {
+      width: 2px;
+      background: var(--neon-mint);
+      border-radius: 1px;
+      height: 3px;
+      transition: height 0.2s ease;
+      opacity: 0.5;
+    }
+
+    .cyber-music-capsule.playing .eq-bar {
+      opacity: 1;
+      box-shadow: 0 0 6px var(--neon-mint);
+      animation: eqBounce 1s ease-in-out infinite alternate;
+    }
+
+    .cyber-music-capsule.playing .bar-1 { animation-delay: 0.1s; }
+    .cyber-music-capsule.playing .bar-2 { animation-delay: 0.35s; }
+    .cyber-music-capsule.playing .bar-3 { animation-delay: 0.2s; }
+    .cyber-music-capsule.playing .bar-4 { animation-delay: 0.45s; }
+
+    @keyframes eqBounce {
+      0% { height: 3px; }
+      50% { height: 14px; }
+      100% { height: 6px; }
+    }
+
+    .music-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      line-height: 1.2;
+    }
+
+    .music-title {
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+    }
+
+    .music-status {
+      font-size: 8.5px;
+      color: var(--neon-mint);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .music-extra-controls {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .music-ctrl-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 11px;
+      padding: 3px;
+      cursor: pointer;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s ease;
+      text-decoration: none;
+      line-height: 1;
+    }
+
+    .music-ctrl-btn:hover {
+      color: var(--neon-mint);
+    }
+
+    /* Collapsed Mini Token Mode */
+    .cyber-music-capsule.collapsed {
+      width: 40px;
+      border-radius: 50%;
+    }
+
+    .cyber-music-capsule.collapsed .music-info,
+    .cyber-music-capsule.collapsed .music-eq,
+    .cyber-music-capsule.collapsed .music-extra-controls {
+      display: none !important;
+    }
+
+    .cyber-music-capsule.collapsed .music-capsule-bar {
+      padding: 5px;
+      min-height: 40px;
+      justify-content: center;
+    }
+
+    /* ADMIN EVENT EDITOR STYLING */
+    .event-selector-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .event-select-pill {
+      background: rgba(11, 13, 23, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 8px 6px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .event-select-pill:hover {
+      border-color: var(--neon-mint);
+      color: #ffffff;
+    }
+
+    .event-select-pill.active {
+      border-color: var(--neon-purple);
+      color: #ffffff;
+      background: rgba(176, 38, 255, 0.18);
+      box-shadow: 0 0 10px rgba(176, 38, 255, 0.35);
+    }
+
+    .event-admin-edit-btn {
+      display: none;
+      padding: 2px 8px;
+      font-size: 10px;
+      border-color: var(--neon-purple);
+      color: #e5b3ff;
+      margin-left: 4px;
+    }
+
+    .admin-authorized .event-admin-edit-btn {
+      display: inline-flex;
+    }
+
+    /* ==================================================== */
+    /* RESPONSIVE SPECIFICATIONS: TABLET & MOBILE ADAPTATION */
+    /* ==================================================== */
+
+    @media (max-width: 1024px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .hero-section {
+        padding: 22px 18px;
+        gap: 18px;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .nav-links {
+        display: none;
+      }
+      .mobile-bottom-nav {
+        display: grid;
+      }
+      .app-container {
+        padding-bottom: calc(var(--bottom-nav-height) + 24px);
+      }
+      .hero-section {
+        grid-template-columns: 1fr;
+      }
+      .hero-desc {
+        max-width: 100%;
+      }
+      .table-scroll-hint {
+        display: block;
+      }
+      .cyber-music-capsule {
+        bottom: calc(var(--bottom-nav-height) + 12px);
+        left: 12px;
+        max-width: 250px;
+      }
+      .music-info {
+        min-width: 80px;
+        max-width: 115px;
+      }
+      .event-selector-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --header-height: 90px;
+      }
+      .main-nav {
+        padding: 4px 10px;
+      }
+      .brand-title {
+        font-size: 12px;
+      }
+      .brand-subtitle {
+        display: none;
+      }
+      .brand-icon {
+        width: 32px;
+        height: 32px;
+      }
+      .staff-badge {
+        max-width: 110px;
+        padding: 3px 6px;
+        font-size: 10px;
+      }
+      .btn {
+        padding: 6px 12px;
+        font-size: 11px;
+      }
+      .btn-sm {
+        padding: 4px 8px;
+        font-size: 10px;
+        min-height: 28px;
+      }
+      .app-container {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      .hero-section {
+        padding: 16px 12px;
+        border-radius: 12px;
+      }
+      .hero-title {
+        font-size: 22px;
+      }
+      .hero-stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+      }
+      .hero-stat-card {
+        padding: 8px 4px;
+      }
+      .hero-stat-val {
+        font-size: 15px;
+      }
+      .hero-stat-lbl {
+        font-size: 8px;
+      }
+      .events-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .event-banner-wrap {
+        height: 140px;
+      }
+      .event-card-title {
+        font-size: 15px;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .tracker-card, .leaderboard-card {
+        padding: 14px 10px;
+        border-radius: 12px;
+      }
+      .registration-box {
+        padding: 20px 14px;
+      }
+      .modal-card {
+        padding: 18px 12px;
+      }
+      .toast-notice {
+        bottom: calc(var(--bottom-nav-height) + 12px);
+        right: 12px;
+        left: 12px;
+      }
+      .podium-1 .podium-pillar { height: 95px; }
+      .podium-2 .podium-pillar { height: 75px; }
+      .podium-3 .podium-pillar { height: 60px; }
+      .podium-number { font-size: 24px; }
+      .podium-name { font-size: 11px; }
+      .podium-steps { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cybernetic Interactive Canvas Background -->
+  <canvas id="tronCanvas"></canvas>
+
+  <!-- TOP STICKY HEADER & CONTINUOUS HORIZONTAL MARQUEE TICKER -->
+  <header class="sticky-header-container" id="appHeader">
+    <!-- Continuous Moving Announcement Marquee Ribbon -->
+    <div class="marquee-wrapper" id="marqueeRibbon">
+      <div class="marquee-badge">⚡ LIVE</div>
+      <div class="marquee-track" id="marqueeTextContent">
+        🌟 WELCOME TO SRTNP COUNSELING MONTH 2026! • 🏃 STRIDE 10K CHALLENGE IS LIVE (19 OCT – 18 NOV) • 🏸 SMASH & CONNECT (3 & 4 NOV) • 🏓 PADDLE UP PICKLEBALL (28 & 29 OCT) • ☕ 'EMPTY CUPS CAN'T POUR' AT THE RHU RESORT (24 OCT) • LOG YOUR DAILY STEPS & CLIMB THE LEADERBOARD!
+      </div>
+    </div>
+
+    <!-- Navigation & User Status Bar -->
+    <nav class="main-nav">
+      <a href="#" class="brand-group">
+        <!-- Official School Logo Container -->
+        <div class="brand-icon">
+          <img src="https://srtnp.edu.my/wp-content/uploads/2025/07/srtnp-logo-scaled.png" alt="SRTNP Official School Logo" class="brand-logo-img" />
+        </div>
+        <div class="brand-title">
+          <span>SRTNP COUNSELING</span>
+          <span class="brand-subtitle">PORTAL 2026</span>
+        </div>
+      </a>
+
+      <!-- Jump Navigation Links (Desktop) -->
+      <ul class="nav-links">
+        <li><a href="#events" class="nav-link active">Programs & Events</a></li>
+        <li><a href="#tracker" class="nav-link">Step Tracker</a></li>
+        <li><a href="#leaderboard" class="nav-link">Leaderboard</a></li>
+      </ul>
+
+      <!-- Action & Profile Buttons -->
+      <div class="nav-actions">
+        <!-- Active Staff Identity Indicator -->
+        <div class="staff-badge" id="headerStaffBadge" style="display: none;">
+          <span class="staff-badge-dot"></span>
+          <span class="staff-badge-name" id="headerStaffNameDisplay">Staff</span>
+          <button class="btn btn-outline btn-sm" id="btnSwitchStaff" title="Switch Account" style="padding: 1px 6px; font-size: 9px; min-height: 20px;">Switch</button>
+        </div>
+
+        <button class="btn btn-mint btn-sm" id="btnOpenLoginModal" style="display: none;">
+          <span>👤</span> Login
+        </button>
+
+        <!-- Sound SFX Toggle -->
+        <button class="btn btn-outline btn-sm" id="btnToggleSound" title="Toggle Tron Audio" style="padding: 4px 8px;">
+          <span id="soundIcon">🔊</span>
+        </button>
+
+        <!-- Admin Access Button -->
+        <button class="btn btn-purple btn-sm" id="btnOpenAdmin">
+          <span>🔒</span> Admin
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN APPLICATION CONTENT -->
+  <main class="app-container" id="mainContainer">
+
+    <!-- HERO SECTION -->
+    <section class="cyber-card hero-section">
+      <div>
+        <div class="hero-kicker">
+          <span>✦</span> Official School Initiative <span>✦</span> 2026
+        </div>
+        <h1 class="hero-title">
+          Inspiring Wellness,<br />
+          <span>Stride by Stride.</span>
+        </h1>
+        <p class="hero-desc">
+          Official SRTNP Counseling Month 2026 Central Portal. Join academic, tasmik, and support staff in 4 signature events to recharge resilience, connect colleagues, and conquer the Stride 10K Cumulative Challenge!
+        </p>
+
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <a href="#tracker" class="btn btn-mint">
+            <span>⚡</span> Log Steps
+          </a>
+          <a href="#events" class="btn btn-blue">
+            <span>📅</span> 4 Events
+          </a>
+          <a href="#leaderboard" class="btn btn-outline">
+            <span>🏆</span> Leaderboard
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick KPI strip -->
+      <div class="hero-stats-grid">
+        <div class="hero-stat-card">
+          <div class="hero-stat-val" id="kpiTotalParticipants">0</div>
+          <div class="hero-stat-lbl">Active Staff</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="hero-stat-val" id="kpiTotalStepsLogged">0</div>
+          <div class="hero-stat-lbl">Steps Logged</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="hero-stat-val" id="kpiGoalProgress">0%</div>
+          <div class="hero-stat-lbl">School Goal</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: PROGRAM EVENT ANNOUNCEMENT CARDS -->
+    <section id="events" style="margin-bottom: 36px;">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <span class="section-kicker">Section 1</span>
+          <h2 class="section-title">Program Event Announcements</h2>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted);">
+          4 Signature Activities · Oct & Nov 2026
+        </div>
+      </div>
+
+      <div class="events-grid">
+
+        <!-- CARD 1: STRIDE 10K CHALLENGE -->
+        <article class="event-card cyber-card" id="eventCard_stride">
+          <div class="event-banner-wrap">
+            <span class="event-badge-tag" id="eventBadge_stride">Flagship Challenge</span>
+            <!-- Anime/Comic Sporty Vector: Cyber Runner with Speedlines -->
+            <svg class="event-banner-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="gradRunner" x1="0%" y1="100%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#0b0d17" />
+                  <stop offset="50%" stop-color="#0c2333" />
+                  <stop offset="100%" stop-color="#00ffcc" stop-opacity="0.3" />
+                </linearGradient>
+              </defs>
+              <rect width="400" height="200" fill="url(#gradRunner)" />
+              <path d="M 0,20 L 400,90 M 0,50 L 400,105 M 0,160 L 400,120 M 0,180 L 400,140" stroke="#00ffcc" stroke-width="1" opacity="0.3" stroke-dasharray="8 6" />
+              <path d="M 0,200 L 200,120 L 400,200 M 50,200 L 200,120 M 120,200 L 200,120 M 280,200 L 200,120 M 350,200 L 200,120" stroke="#00d2ff" stroke-width="1.2" opacity="0.4" />
+              <line x1="20" y1="180" x2="380" y2="180" stroke="#00d2ff" stroke-width="1" opacity="0.4" />
+              <line x1="60" y1="155" x2="340" y2="155" stroke="#00d2ff" stroke-width="1" opacity="0.4" />
+              <g transform="translate(140, 25)">
+                <path d="M -30,60 Q 20,40 80,75" fill="none" stroke="#00ffcc" stroke-width="4" stroke-linecap="round" opacity="0.8" />
+                <path d="M -40,80 Q 30,50 90,95" fill="none" stroke="#b026ff" stroke-width="3" stroke-linecap="round" opacity="0.7" />
+                <circle cx="58" cy="28" r="14" fill="#00ffcc" />
+                <path d="M 52,38 L 74,70 L 62,95 L 42,65 Z" fill="#ffffff" />
+                <path d="M 68,48 L 102,42 L 118,58" fill="none" stroke="#00ffcc" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M 45,55 L 20,70 L 5,60" fill="none" stroke="#00d2ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M 62,92 L 95,108 L 125,105" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M 46,90 L 15,115 L 28,145" fill="none" stroke="#00ffcc" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="125" cy="105" r="7" fill="#00ffcc" />
+                <circle cx="28" cy="145" r="7" fill="#00ffcc" />
+              </g>
+              <text x="20" y="55" font-family="'Century Gothic', sans-serif" font-weight="900" font-size="28" fill="#00ffcc" opacity="0.25" letter-spacing="4">STRIDE 10K</text>
+            </svg>
+          </div>
+          <div class="event-content">
+            <div class="event-date-row" id="eventDateRow_stride">
+              <span>📅</span> 19/10/2026 – 18/11/2026
+            </div>
+            <h3 class="event-card-title" id="eventTitle_stride">STRIDE 10K CHALLENGE</h3>
+            <ul class="event-meta-list" id="eventMetaList_stride">
+              <li class="event-meta-item">
+                <span class="event-meta-icon">⚡</span>
+                <span><strong>Target:</strong> 10,000 steps/day (310,000 cumulative steps).</span>
+              </li>
+              <li class="event-meta-item">
+                <span class="event-meta-icon">👟</span>
+                <span><strong>Tracking:</strong> Strava, Garmin, Apple Health, Pedometer.</span>
+              </li>
+              <li class="event-meta-item">
+                <span class="event-meta-icon">🏅</span>
+                <span><strong>Awards:</strong> Top Muallim & Muallimah grand prizes.</span>
+              </li>
+            </ul>
+            <div class="event-actions" id="eventActions_stride">
+              <a href="#tracker" class="btn btn-mint btn-sm" style="flex: 1;">Log Steps</a>
+              <button class="btn btn-outline btn-sm" onclick="downloadEventICSByKey('stride')">Add Cal</button>
+              <button class="btn btn-outline btn-sm event-admin-edit-btn" onclick="openAdminEventEditor('stride')">⚙️ Edit</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 2: SMASH & CONNECT (Badminton) -->
+        <article class="event-card cyber-card cyber-card-blue" id="eventCard_smash">
+          <div class="event-banner-wrap">
+            <span class="event-badge-tag" id="eventBadge_smash" style="border-color: var(--neon-blue); color: var(--neon-blue);">Court Sports</span>
+            <!-- Anime/Comic Sporty Vector: Badminton Smash -->
+            <svg class="event-banner-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="gradBadm" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0b0d17" />
+                  <stop offset="50%" stop-color="#141c38" />
+                  <stop offset="100%" stop-color="#00d2ff" stop-opacity="0.35" />
+                </linearGradient>
+              </defs>
+              <rect width="400" height="200" fill="url(#gradBadm)" />
+              <polygon points="60,190 340,190 280,120 120,120" fill="none" stroke="#00d2ff" stroke-width="1.5" opacity="0.5" />
+              <line x1="200" y1="120" x2="200" y2="190" stroke="#00ffcc" stroke-width="1" opacity="0.4" />
+              <line x1="110" y1="135" x2="290" y2="135" stroke="#ffffff" stroke-width="2" opacity="0.7" />
+              <g transform="translate(110, 20)">
+                <path d="M 80,15 A 60,60 0 0,1 170,75" fill="none" stroke="#00d2ff" stroke-width="6" stroke-linecap="round" opacity="0.8" />
+                <circle cx="100" cy="55" r="13" fill="#00d2ff" />
+                <path d="M 95,66 L 115,95 L 105,125 L 85,95 Z" fill="#ffffff" />
+                <line x1="108" y1="72" x2="148" y2="35" stroke="#ffffff" stroke-width="5" stroke-linecap="round" />
+                <ellipse cx="160" cy="24" rx="14" ry="18" fill="none" stroke="#00d2ff" stroke-width="3" transform="rotate(35 160 24)" />
+                <polygon points="180,38 230,58 220,64" fill="#00ffcc" opacity="0.6" />
+                <circle cx="185" cy="40" r="5" fill="#ffffff" />
+              </g>
+              <text x="20" y="55" font-family="'Century Gothic', sans-serif" font-weight="900" font-size="26" fill="#00d2ff" opacity="0.25" letter-spacing="4">BADMINTON</text>
+            </svg>
+          </div>
+          <div class="event-content">
+            <div class="event-date-row" id="eventDateRow_smash" style="color: var(--neon-blue);">
+              <span>🏸</span> 3 & 4 November 2026
+            </div>
+            <h3 class="event-card-title" id="eventTitle_smash">SMASH & CONNECT</h3>
+            <ul class="event-meta-list" id="eventMetaList_smash">
+              <li class="event-meta-item">
+                <span class="event-meta-icon" style="color: var(--neon-blue);">✦</span>
+                <span><strong>Muallimah Session:</strong> 3/11/2026 (5:00 PM – 7:00 PM)</span>
+              </li>
+              <li class="event-meta-item">
+                <span class="event-meta-icon" style="color: var(--neon-blue);">✦</span>
+                <span><strong>Muallim Session:</strong> 4/11/2026 (5:00 PM – 7:00 PM)</span>
+              </li>
+              <li class="event-meta-item">
+                <span class="event-meta-icon" style="color: var(--neon-blue);">📍</span>
+                <span><strong>Venue:</strong> Dewan Al-Falah / Court SRTNP.</span>
+              </li>
+            </ul>
+            <div class="event-actions" id="eventActions_smash">
+              <button class="btn btn-blue btn-sm" style="flex: 1;" onclick="openEventDetailsModal('smash')">Event Details</button>
+              <button class="btn btn-outline btn-sm" onclick="downloadEventICSByKey('smash')">Add Cal</button>
+              <button class="btn btn-outline btn-sm event-admin-edit-btn" onclick="openAdminEventEditor('smash')">⚙️ Edit</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 3: PADDLE UP (Pickleball) -->
+        <article class="event-card cyber-card cyber-card-purple" id="eventCard_pickleball">
+          <div class="event-banner-wrap">
+            <span class="event-badge-tag" id="eventBadge_pickleball" style="border-color: var(--neon-purple); color: #e5b3ff;">Trend Sport</span>
+            <!-- Anime/Comic Sporty Vector: Pickleball -->
+            <svg class="event-banner-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="gradPickle" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0b0d17" />
+                  <stop offset="50%" stop-color="#220e3a" />
+                  <stop offset="100%" stop-color="#b026ff" stop-opacity="0.35" />
+                </linearGradient>
+              </defs>
+              <rect width="400" height="200" fill="url(#gradPickle)" />
+              <polygon points="50,195 350,195 290,130 110,130" fill="none" stroke="#b026ff" stroke-width="1.5" opacity="0.5" />
+              <line x1="80" y1="165" x2="320" y2="165" stroke="#e5b3ff" stroke-width="1.2" opacity="0.5" />
+              <g transform="translate(100, 30)">
+                <circle cx="85" cy="45" r="13" fill="#b026ff" />
+                <path d="M 80,56 L 102,88 L 92,120 L 70,88 Z" fill="#ffffff" />
+                <line x1="95" y1="65" x2="135" y2="60" stroke="#ffffff" stroke-width="5" stroke-linecap="round" />
+                <rect x="135" y="42" width="26" height="34" rx="6" fill="#00ffcc" stroke="#ffffff" stroke-width="2" transform="rotate(15 135 42)" />
+                <circle cx="195" cy="58" r="14" fill="#00ffcc" />
+                <circle cx="191" cy="54" r="2" fill="#0b0d17" />
+                <circle cx="198" cy="54" r="2" fill="#0b0d17" />
+                <circle cx="195" cy="62" r="2" fill="#0b0d17" />
+              </g>
+              <text x="20" y="55" font-family="'Century Gothic', sans-serif" font-weight="900" font-size="26" fill="#b026ff" opacity="0.3" letter-spacing="4">PICKLEBALL</text>
+            </svg>
+          </div>
+          <div class="event-content">
+            <div class="event-date-row" id="eventDateRow_pickleball" style="color: #e5b3ff;">
+              <span>🏓</span> 28 & 29 October 2026
+            </div>
+            <h3 class="event-card-title" id="eventTitle_pickleball">PADDLE UP</h3>
+            <ul class="event-meta-list" id="eventMetaList_pickleball">
+              <li class="event-meta-item">
+                <span class="event-meta-icon" style="color: var(--neon-purple);">✦</span>
+                <span><strong>Muallimah Session:</strong> 28/10/2026 (5:00 PM – 7:00 PM)</span>
+              </li>
+              <li class="event-meta-item">
+                <span class="event-meta-icon" style="color: var(--neon-purple);">✦</span>
+                <span><strong>Muallim Session:</strong> 29/10/2026 (5:00 PM – 7:00 PM)</span>
+              </li>
+              <li class="event-meta-item">
+                <span class="event-meta-icon" style="color: var(--neon-purple);">🏓</span>
+                <span><strong>Equipment:</strong> Paddles and beginner training provided!</span>
+              </li>
+            </ul>
+            <div class="event-actions" id="eventActions_pickleball">
+              <button class="btn btn-purple btn-sm" style="flex: 1;" onclick="openEventDetailsModal('pickleball')">Event Details</button>
+              <button class="btn btn-outline btn-sm" onclick="downloadEventICSByKey('pickleball')">Add Cal</button>
+              <button class="btn btn-outline btn-sm event-admin-edit-btn" onclick="openAdminEventEditor('pickleball')">⚙️ Edit</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 4: EMPTY CUPS CAN'T POUR: BURNOUT TANPA RASA BERSALAH -->
+        <article class="event-card cyber-card" id="eventCard_burnout" style="border-color: rgba(255, 215, 0, 0.35);">
+          <div class="event-banner-wrap">
+            <span class="event-badge-tag" id="eventBadge_burnout" style="border-color: var(--neon-gold); color: var(--neon-gold);">Wellness Retreat</span>
+            <!-- Anime/Comic Sporty Vector: The Rhu Resort -->
+            <svg class="event-banner-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="gradResort" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0b0d17" />
+                  <stop offset="60%" stop-color="#1d1933" />
+                  <stop offset="100%" stop-color="#ffd700" stop-opacity="0.3" />
+                </linearGradient>
+              </defs>
+              <rect width="400" height="200" fill="url(#gradResort)" />
+              <circle cx="290" cy="120" r="55" fill="#ffd700" opacity="0.35" />
+              <path d="M 0,165 Q 100,155 200,165 T 400,165 L 400,200 L 0,200 Z" fill="#0c1d33" opacity="0.8" />
+              <path d="M 0,180 Q 100,175 200,180 T 400,180" stroke="#00ffcc" stroke-width="1.5" fill="none" opacity="0.4" />
+              <g transform="translate(320, 70)">
+                <path d="M 10,95 Q 5,45 -15,10" stroke="#0b0d17" stroke-width="5" fill="none" />
+                <path d="M -15,10 Q -35,-5 -60,10 M -15,10 Q 5,-15 25,-10 M -15,10 Q -10,-25 -25,-40" stroke="#ffd700" stroke-width="2.5" fill="none" opacity="0.7" />
+              </g>
+              <g transform="translate(100, 45)">
+                <path d="M 35,25 Q 30,10 40,0" stroke="#00ffcc" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8" />
+                <path d="M 50,25 Q 55,10 45,0" stroke="#ffd700" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8" />
+                <path d="M 15,35 L 25,95 Q 45,105 65,95 L 75,35 Z" fill="#12182c" stroke="#ffd700" stroke-width="3" />
+                <path d="M 72,45 C 90,45 90,75 68,80" fill="none" stroke="#ffd700" stroke-width="3" />
+                <polygon points="45,55 52,65 45,80 38,65" fill="#00ffcc" />
+              </g>
+              <text x="20" y="50" font-family="'Century Gothic', sans-serif" font-weight="900" font-size="22" fill="#ffd700" opacity="0.3" letter-spacing="3">WELLNESS</text>
+            </svg>
+          </div>
+          <div class="event-content">
+            <div class="event-date-row" id="eventDateRow_burnout" style="color: var(--neon-gold);">
+              <span>☕</span> 24/10/2026 (8:00 AM – 9:00 AM)
+            </div>
+            <h3 class="event-card-title" id="eventTitle_burnout">EMPTY CUPS CAN'T POUR: BURNOUT TANPA RASA BERSALAH</h3>
+            <ul class="event-meta-list" id="eventMetaList_burnout">
+              <li class="event-meta-item">
+                <span class="event-meta-icon" style="color: var(--neon-gold);">📍</span>
+                <span><strong>Venue:</strong> The Rhu Resort (Scenic Beachfront Hall).</span>
+              </li>
+              <li class="event-meta-item">
+                <span class="event-meta-icon" style="color: var(--neon-gold);">🧠</span>
+                <span><strong>Theme:</strong> Mental wellness, healthy boundaries & guilt-free rest.</span>
+              </li>
+              <li class="event-meta-item">
+                <span class="event-meta-icon" style="color: var(--neon-gold);">🍳</span>
+                <span><strong>Inclusions:</strong> Breakfast buffet & counseling care package.</span>
+              </li>
+            </ul>
+            <div class="event-actions" id="eventActions_burnout">
+              <button class="btn btn-mint btn-sm" style="flex: 1; border-color: var(--neon-gold); color: var(--neon-gold);" onclick="openEventDetailsModal('burnout')">Event Details</button>
+              <button class="btn btn-outline btn-sm" onclick="downloadEventICSByKey('burnout')">Add Cal</button>
+              <button class="btn btn-outline btn-sm event-admin-edit-btn" onclick="openAdminEventEditor('burnout')">⚙️ Edit</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2 & 3: STEP TRACKER MODULE & CUMULATIVE LEADERBOARD -->
+    <div class="dashboard-grid">
+
+      <!-- SECTION 2: STRIDE 10K STEP TRACKER MODULE -->
+      <section id="tracker" class="cyber-card tracker-card">
+        <div class="section-title-wrap" style="margin-bottom: 16px;">
+          <span class="section-kicker">Section 2</span>
+          <h2 class="section-title">
+            <span>⚡</span> Stride 10K Step Tracker
+          </h2>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
+            Daily Goal: 10,000 steps · Cumulative Goal: 310,000 steps
+          </p>
+        </div>
+
+        <!-- Logged-in Staff Info Strip -->
+        <div class="user-profile-strip">
+          <div class="user-profile-info">
+            <div class="user-avatar-badge" id="cardStaffInitials">ST</div>
+            <div style="min-width: 0;">
+              <div class="user-name-title" id="cardStaffName">Guest / Unregistered</div>
+              <div class="user-sub-meta">
+                ID: <span id="cardStaffId" style="color: #ffffff; font-weight: bold;">—</span> ·
+                <span id="cardStaffPedometer" style="color: var(--neon-mint);">Tap to register</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-outline btn-sm" id="btnChangeAccount">Register / Login</button>
+        </div>
+
+        <!-- Interactive Step Entry Form -->
+        <form id="stepEntryForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="stepDateInput">Entry Date</label>
+              <input type="date" id="stepDateInput" class="form-input" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="stepCountInput">Step Count (Steps)</label>
+              <input type="number" id="stepCountInput" class="form-input" placeholder="e.g. 10000" min="1" max="100000" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="stepDistanceInput">Distance in KM (Optional)</label>
+            <input type="number" id="stepDistanceInput" class="form-input" step="0.01" placeholder="Auto-calculated (e.g. 7.50)" />
+          </div>
+
+          <!-- Proof Screenshot Attachment (Base64 file reader) -->
+          <div class="form-group">
+            <label class="form-label">Proof Screenshot Attachment</label>
+            <div class="file-upload-box" id="dropArea">
+              <input type="file" id="proofFileInput" class="file-upload-input" accept="image/*" />
+              <div class="file-upload-icon">📸</div>
+              <div class="file-upload-text">
+                <strong style="color: var(--neon-mint);">Tap or Drag & Drop</strong> Strava / pedometer screenshot
+              </div>
+              <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Auto-compressed for fast syncing</div>
+            </div>
+
+            <!-- Preview box -->
+            <div class="preview-box" id="proofPreviewBox">
+              <img id="proofPreviewImg" class="preview-img" alt="Proof Screenshot" />
+              <button type="button" class="preview-remove" id="btnRemoveProof">Remove ×</button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-mint" id="btnSubmitSteps" style="width: 100%; margin-top: 6px;">
+            <span>⚡</span> Log My Steps
+          </button>
+        </form>
+
+        <!-- Personal Goal Progress Bar -->
+        <div class="user-progress-panel">
+          <div class="progress-header">
+            <span style="font-weight: 700; color: #ffffff;">My Cumulative Challenge Progress</span>
+            <span style="font-weight: 800; color: var(--neon-mint); font-variant-numeric: tabular-nums;" id="userProgressPct">0%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="userProgressBar"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); margin-top: 5px;">
+            <span>Logged: <strong id="userTotalStepsFormatted" style="color: #ffffff;">0</strong> steps</span>
+            <span>Target: 310,000 steps</span>
+          </div>
+        </div>
+
+        <!-- My Step Logs Quick Sub-list -->
+        <div style="margin-top: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h4 style="font-size: 12px; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 0.5px;">My Recent Submissions</h4>
+            <span style="font-size: 10px; color: var(--text-muted);" id="userLogCount">0 entries</span>
+          </div>
+          <div id="userLogListContainer" style="max-height: 160px; overflow-y: auto;">
+            <div style="text-align: center; padding: 16px; font-size: 11px; color: var(--text-muted);">
+              No step entries logged yet. Input your steps above to begin your journey!
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- SECTION 3: STRIDE 10K CUMULATIVE LEADERBOARD WITH TRON PODIUM -->
+      <section id="leaderboard" class="cyber-card leaderboard-card">
+        <div class="section-title-wrap" style="margin-bottom: 12px;">
+          <span class="section-kicker">Section 3</span>
+          <h2 class="section-title">
+            <span>🏆</span> Stride 10K Leaderboard
+          </h2>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
+            Live Standings · Cumulative Total towards 310,000 Steps
+          </p>
+        </div>
+
+        <!-- Search Input -->
+        <div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 12px;">
+          <div style="position: relative; max-width: 260px; width: 100%;">
+            <input type="text" id="leaderboardSearchInput" class="form-input" placeholder="Search staff name or ID..." style="padding: 6px 12px; font-size: 11px;" />
+          </div>
+        </div>
+
+        <!-- TRON PODIUM BAR RANKING (TOP 3 CONTENDERS) -->
+        <div class="podium-section" id="podiumSection">
+          <div class="podium-header-row">
+            <div class="podium-title">
+              <span>⚡</span> TRON PODIUM · TOP 3 CONTENDERS
+            </div>
+            <div style="font-size: 10px; color: var(--neon-mint); font-weight: 700;" id="podiumCategoryLabel">
+              All Staff Standings
+            </div>
+          </div>
+          <!-- Grid displaying Rank 2, Rank 1 (tallest center), Rank 3 -->
+          <div class="podium-grid" id="podiumGrid">
+            <!-- Dynamically populated in JavaScript -->
+          </div>
+        </div>
+
+        <div class="table-scroll-hint">↔ Swipe horizontally to view full stats</div>
+
+        <!-- Leaderboard Table -->
+        <div class="table-responsive">
+          <table class="cyber-table">
+            <thead>
+              <tr>
+                <th style="width: 44px;">Rank</th>
+                <th>Staff Member</th>
+                <th>Total Steps</th>
+                <th style="width: 120px;">Goal %</th>
+                <th>Distance</th>
+                <th style="text-align: center;">Proof</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardTableBody">
+              <tr>
+                <td colspan="6" style="text-align: center; padding: 24px; color: var(--text-muted);">
+                  Loading live leaderboard records from SRTNP portal...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
+          <span>⚡ Synced with Firebase RTDB</span>
+          <button class="btn btn-outline btn-sm" id="btnRefreshLeaderboard" style="padding: 2px 8px; font-size: 10px; min-height: 24px;">Refresh</button>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- MOBILE BOTTOM NAVIGATION BAR -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav">
+    <a href="#events" class="mobile-nav-item active" data-target="events">
+      <span class="mobile-nav-icon">📅</span>
+      <span class="mobile-nav-label">Events</span>
+    </a>
+    <a href="#tracker" class="mobile-nav-item" data-target="tracker">
+      <span class="mobile-nav-icon">⚡</span>
+      <span class="mobile-nav-label">Track</span>
+    </a>
+    <a href="#leaderboard" class="mobile-nav-item" data-target="leaderboard">
+      <span class="mobile-nav-icon">🏆</span>
+      <span class="mobile-nav-label">Ranks</span>
+    </a>
+    <button class="mobile-nav-item" id="btnMobileAdmin" style="background:none;border:none;cursor:pointer;">
+      <span class="mobile-nav-icon">🔒</span>
+      <span class="mobile-nav-label">Admin</span>
+    </button>
+  </nav>
+
+  <!-- ========================================== -->
+  <!-- SCREEN A: ONE-TIME STAFF REGISTRATION OVERLAY -->
+  <!-- ========================================== -->
+  <div class="registration-overlay" id="registrationOverlay">
+    <div class="registration-box cyber-card">
+      <button class="modal-close-btn" id="btnCloseRegistrationModal" title="Close / Explore Portal">×</button>
+
+      <div style="text-align: center; margin-bottom: 20px;">
+        <!-- Official School Logo in Registration Modal -->
+        <div class="brand-icon" style="margin: 0 auto 10px auto; width: 48px; height: 48px; padding: 3px;">
+          <img src="https://srtnp.edu.my/wp-content/uploads/2025/07/srtnp-logo-scaled.png" alt="SRTNP Official School Logo" class="brand-logo-img" />
+        </div>
+        <div class="hero-kicker" style="justify-content: center;">Identity Authentication</div>
+        <h2 style="font-size: 20px; font-weight: 800; color: #ffffff; letter-spacing: 0.5px;">
+          SRTNP Staff Registration
+        </h2>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
+          Register once to link your Strava / Pedometer and record steps for the Counseling Month 2026 challenge.
+        </p>
+      </div>
+
+      <!-- Registration Form -->
+      <form id="staffRegisterForm">
+        <div class="form-group">
+          <label class="form-label" for="regFullName">Full Name</label>
+          <input type="text" id="regFullName" class="form-input" placeholder="e.g. Muallimah Siti Sarah bt. Ahmad" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="regStaffId">Staff ID (Unique)</label>
+            <input type="text" id="regStaffId" class="form-input" placeholder="e.g. SRTNP-104" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regPhone">Phone Number</label>
+            <input type="tel" id="regPhone" class="form-input" placeholder="e.g. 012-3456789" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="regCategory">Staff Role / Dept</label>
+            <select id="regCategory" class="form-select">
+              <option value="Academic">Academic Staff</option>
+              <option value="Tasmik">Tasmik Staff</option>
+              <option value="Support">Support Staff</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regPedometer">Strava / Pedometer ID</label>
+            <input type="text" id="regPedometer" class="form-input" placeholder="e.g. Strava @siti or Garmin #98" required />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-mint" style="width: 100%; margin-top: 6px;" id="btnSubmitRegistration">
+          <span>✦</span> Complete Registration & Enter
+        </button>
+
+        <button type="button" class="btn btn-outline" id="btnExplorePortalFirst" style="width: 100%; margin-top: 8px;">
+          Explore Portal First (Guest View)
+        </button>
+      </form>
+
+      <!-- Quick Switch to Staff ID Login -->
+      <div style="margin-top: 14px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 12px;">
+        <span style="font-size: 11px; color: var(--text-muted);">Already registered?</span>
+        <button type="button" class="btn btn-outline btn-sm" id="btnToggleQuickLogin" style="margin-left: 6px; padding: 3px 8px;">
+          Staff ID Login
+        </button>
+      </div>
+
+      <!-- Quick Login Sub-Form (Hidden by default) -->
+      <div id="quickLoginBox" style="display: none; margin-top: 12px; padding: 12px; background: rgba(0,0,0,0.4); border-radius: 8px;">
+        <div class="form-group" style="margin-bottom: 8px;">
+          <label class="form-label" for="loginStaffIdInput">Enter Your Registered Staff ID</label>
+          <input type="text" id="loginStaffIdInput" class="form-input" placeholder="e.g. SRTNP-104" />
+        </div>
+        <button type="button" class="btn btn-blue btn-sm" id="btnDoQuickLogin" style="width: 100%;">
+          Sign In
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SECTION 4: ADMIN DASHBOARD MODAL -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" id="adminModalOverlay">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="btnCloseAdminModal">×</button>
+
+      <!-- Password Lock Screen Screen -->
+      <div id="adminAuthScreen" class="admin-auth-box">
+        <div style="font-size: 28px; color: var(--neon-purple); margin-bottom: 8px;">🔒</div>
+        <h3 style="font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: 0.5px;">Admin Control Center</h3>
+        <p style="font-size: 12px; color: var(--text-muted); margin: 6px 0 16px 0;">
+          Please enter the administrative key to access marquee management, moderation, and data export.
+        </p>
+
+        <form id="adminLoginForm">
+          <div class="form-group" style="text-align: left;">
+            <label class="form-label" for="adminPasswordInput">Security Passcode</label>
+            <input type="password" id="adminPasswordInput" class="form-input" placeholder="Enter Admin Password" required autocomplete="current-password" />
+          </div>
+          <div id="adminAuthError" style="color: var(--neon-coral); font-size: 11px; margin-bottom: 10px; display: none;">
+            Incorrect passcode. Access denied.
+          </div>
+          <button type="submit" class="btn btn-purple" style="width: 100%;">
+            Authorize Console
+          </button>
+        </form>
+      </div>
+
+      <!-- Unlocked Admin Dashboard Console -->
+      <div id="adminDashboardContent" style="display: none;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); gap: 10px; flex-wrap: wrap;">
+          <div>
+            <span class="hero-kicker" style="color: var(--neon-purple); font-size: 10px;">ADMINISTRATIVE OVERVIEW</span>
+            <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;">SRTNP Counseling 2026 Admin Portal</h3>
+          </div>
+          <button class="btn btn-outline btn-sm" id="btnAdminLogout" style="color: var(--neon-coral); border-color: var(--neon-coral);">
+            Lock Console
+          </button>
+        </div>
+
+        <!-- Admin Tabs -->
+        <div class="admin-tab-nav">
+          <button class="admin-tab-btn active" data-tab="tabMarquee">1. Live Ribbon</button>
+          <button class="admin-tab-btn" data-tab="tabEvents">2. Edit Events</button>
+          <button class="admin-tab-btn" data-tab="tabModeration">3. Step Moderation</button>
+          <button class="admin-tab-btn" data-tab="tabRoster">4. Staff Roster</button>
+          <button class="admin-tab-btn" data-tab="tabExport">5. Export CSV</button>
+        </div>
+
+        <!-- TAB 1: LIVE MARQUEE EDITOR -->
+        <div id="tabMarquee" class="admin-tab-pane">
+          <div style="background: rgba(176, 38, 255, 0.08); border: 1px solid var(--border-purple); border-radius: 10px; padding: 14px; margin-bottom: 14px;">
+            <label class="form-label" style="color: #e5b3ff;">Current Ticker Announcement</label>
+            <div id="adminCurrentMarqueePreview" style="font-size: 12px; color: var(--neon-mint); font-weight: 700; margin-bottom: 10px; background: rgba(0,0,0,0.5); padding: 8px; border-radius: 6px; border-left: 3px solid var(--neon-mint);">
+              Loading announcement...
+            </div>
+
+            <form id="updateMarqueeForm">
+              <label class="form-label" for="newMarqueeTextInput">Update Top Moving Announcement Text</label>
+              <textarea id="newMarqueeTextInput" class="form-input" rows="3" placeholder="Compose live announcement..." required style="resize: vertical;"></textarea>
+
+              <div style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
+                <button type="button" class="btn btn-outline btn-sm" onclick="setMarqueePreset(1)">Preset: Challenge Kickoff</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="setMarqueePreset(2)">Preset: Badminton Notice</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="setMarqueePreset(3)">Preset: Pickleball Reminder</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="setMarqueePreset(4)">Preset: Resort Burnout Talk</button>
+              </div>
+
+              <button type="submit" class="btn btn-purple" style="margin-top: 12px;">
+                <span>📢</span> Update Live Announcement Ribbon
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- TAB 2: EDIT & UPDATE PROGRAM EVENTS -->
+        <div id="tabEvents" class="admin-tab-pane" style="display: none;">
+          <div style="background: rgba(0, 210, 255, 0.06); border: 1px solid var(--border-blue); border-radius: 10px; padding: 14px; margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+              <div>
+                <span class="hero-kicker" style="color: var(--neon-blue); font-size: 10px;">PROGRAM MANAGEMENT</span>
+                <h4 style="font-size: 15px; font-weight: 800; color: #ffffff;">Edit & Update Event Details</h4>
+              </div>
+              <span style="font-size: 11px; color: var(--neon-mint); font-weight: 600;">⚡ Real-time Firebase Sync</span>
+            </div>
+
+            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">
+              Select an activity below to modify its dates, schedules, venues, rules, or details. All updates broadcast immediately across the portal.
+            </p>
+
+            <!-- Event Selector Pills -->
+            <div class="event-selector-strip" id="adminEventSelectorStrip">
+              <div class="event-select-pill active" data-event="stride">1. Stride 10K</div>
+              <div class="event-select-pill" data-event="smash">2. Badminton</div>
+              <div class="event-select-pill" data-event="pickleball">3. Pickleball</div>
+              <div class="event-select-pill" data-event="burnout">4. Burnout Retreat</div>
+            </div>
+
+            <!-- Event Edit Form -->
+            <form id="adminEditEventForm">
+              <input type="hidden" id="editEventKey" value="stride" />
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="editEventTitle">Event Title</label>
+                  <input type="text" id="editEventTitle" class="form-input" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="editEventBadge">Category Tag / Badge</label>
+                  <input type="text" id="editEventBadge" class="form-input" placeholder="e.g. Flagship Challenge, Court Sports" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="editEventDates">Display Date / Schedule Text</label>
+                  <input type="text" id="editEventDates" class="form-input" placeholder="e.g. 19/10/2026 – 18/11/2026" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="editEventVenue">Venue / Location</label>
+                  <input type="text" id="editEventVenue" class="form-input" placeholder="e.g. Dewan Al-Falah / Court SRTNP" required />
+                </div>
+              </div>
+
+              <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; margin-top: 8px; margin-bottom: 10px;">
+                <label class="form-label" style="color: var(--neon-mint);">Card Highlights (3 Key Points on Portal Card)</label>
+                <div class="form-group" style="margin-bottom: 6px;">
+                  <label class="form-label" for="editMeta1" style="font-size: 10px;">Point 1 (Target / Session 1 / Venue)</label>
+                  <input type="text" id="editMeta1" class="form-input" placeholder="e.g. Target: 10,000 steps/day (310,000 cumulative steps)." required />
+                </div>
+                <div class="form-group" style="margin-bottom: 6px;">
+                  <label class="form-label" for="editMeta2" style="font-size: 10px;">Point 2 (Session 2 / App Tracking / Theme)</label>
+                  <input type="text" id="editMeta2" class="form-input" placeholder="e.g. Muallim Session: 4/11/2026 (5:00 PM – 7:00 PM)" required />
+                </div>
+                <div class="form-group" style="margin-bottom: 6px;">
+                  <label class="form-label" for="editMeta3" style="font-size: 10px;">Point 3 (Awards / Inclusions / Equipment)</label>
+                  <input type="text" id="editMeta3" class="form-input" placeholder="e.g. Top Muallim & Muallimah grand prizes." required />
+                </div>
+              </div>
+
+              <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; margin-top: 8px; margin-bottom: 10px;">
+                <label class="form-label" style="color: #e5b3ff;">Detailed Modal View Content</label>
+                <div class="form-group" style="margin-bottom: 6px;">
+                  <label class="form-label" for="editEventDesc" style="font-size: 10px;">Full Event Overview</label>
+                  <textarea id="editEventDesc" class="form-input" rows="2" style="resize: vertical;" required></textarea>
+                </div>
+                <div class="form-group" style="margin-bottom: 6px;">
+                  <label class="form-label" for="editEventSchedule" style="font-size: 10px;">Official Schedule Breakdown (One per line)</label>
+                  <textarea id="editEventSchedule" class="form-input" rows="2" style="resize: vertical;"></textarea>
+                </div>
+                <div class="form-group" style="margin-bottom: 6px;">
+                  <label class="form-label" for="editEventBullets" style="font-size: 10px;">Rules, Attire & Inclusions (One per line)</label>
+                  <textarea id="editEventBullets" class="form-input" rows="2" style="resize: vertical;"></textarea>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;">
+                <button type="submit" class="btn btn-blue" style="flex: 1;" id="btnSaveEventDetails">
+                  <span>💾</span> Save & Broadcast Event Details
+                </button>
+                <button type="button" class="btn btn-outline" id="btnResetEventDefault" style="border-color: rgba(255,255,255,0.2);">
+                  <span>↺</span> Reset to Default
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- TAB 2: STEP LOG MODERATION TABLE -->
+        <div id="tabModeration" class="admin-tab-pane" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span style="font-size: 12px; color: var(--text-muted);">View, correct, or remove staff step entries.</span>
+            <span id="adminTotalLogsCount" style="font-size: 11px; font-weight: bold; color: var(--neon-mint);">0 logs</span>
+          </div>
+
+          <div class="table-responsive" style="max-height: 380px; overflow-y: auto;">
+            <table class="cyber-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Staff Name & ID</th>
+                  <th>Steps</th>
+                  <th>Distance</th>
+                  <th>Proof</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminModerationTableBody">
+                <tr>
+                  <td colspan="6" style="text-align: center; padding: 18px; color: var(--text-muted);">
+                    Loading step submissions...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 3: REGISTERED STAFF ROSTER -->
+        <div id="tabRoster" class="admin-tab-pane" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; flex-wrap: wrap;">
+            <div>
+              <span style="font-size: 12px; color: var(--text-muted);">Complete roster of registered Academic, Tasmik, and Support staff.</span>
+              <div style="font-size: 11px; color: rgba(255, 255, 255, 0.4); margin-top: 2px;">Remove staff or teachers if registered by mistake or duplicate.</div>
+            </div>
+            <span id="adminTotalStaffCount" style="font-size: 11px; font-weight: bold; color: var(--neon-blue);">0 registered</span>
+          </div>
+
+          <div class="table-responsive" style="max-height: 380px; overflow-y: auto;">
+            <table class="cyber-table">
+              <thead>
+                <tr>
+                  <th>Staff ID</th>
+                  <th>Full Name</th>
+                  <th>Role</th>
+                  <th>Phone Number</th>
+                  <th>Strava / Pedometer ID</th>
+                  <th>Registered</th>
+                  <th style="text-align: center;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminRosterTableBody">
+                <tr>
+                  <td colspan="7" style="text-align: center; padding: 18px; color: var(--text-muted);">
+                    Loading staff directory...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 4: EXPORT REPORT TO CSV -->
+        <div id="tabExport" class="admin-tab-pane" style="display: none;">
+          <div style="background: rgba(0, 210, 255, 0.05); border: 1px solid var(--border-blue); border-radius: 10px; padding: 20px; text-align: center;">
+            <div style="font-size: 32px; color: var(--neon-mint); margin-bottom: 10px;">📊</div>
+            <h4 style="font-size: 16px; font-weight: 800; color: #ffffff; margin-bottom: 6px;">Export Program Report to CSV</h4>
+            <p style="font-size: 12px; color: var(--text-muted); max-width: 500px; margin: 0 auto 16px auto;">
+              Generate and download a comprehensive CSV spreadsheet report containing the full Cumulative Stride 10K Leaderboard, registered staff roster, and complete step log records for administrative evaluation.
+            </p>
+
+            <button type="button" class="btn btn-mint" id="btnExportCSV">
+              <span>📥</span> Download Program Report (.CSV)
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PROOF SCREENSHOT VIEW MODAL OVERLAY -->
+  <div class="modal-overlay proof-viewer-modal" id="proofViewModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="btnCloseProofModal">×</button>
+      <div class="hero-kicker" style="color: var(--neon-mint);">STEP LOG VERIFICATION</div>
+      <h3 style="font-size: 16px; font-weight: 800; color: #ffffff;" id="proofModalStaffName">Proof of Activity</h3>
+      <div style="font-size: 12px; color: var(--neon-blue); margin-top: 3px;" id="proofModalMeta">Date: 2026-10-19 · Steps: 10,000</div>
+
+      <div style="margin-top: 12px;">
+        <img id="proofModalImg" class="proof-img-display" src="" alt="Pedometer Screenshot Proof" />
+      </div>
+    </div>
+  </div>
+
+  <!-- EVENT DETAILS MODAL OVERLAY -->
+  <div class="modal-overlay" id="eventDetailsModal">
+    <div class="modal-card" style="max-width: 560px;">
+      <button class="modal-close-btn" id="btnCloseEventDetailsModal">×</button>
+      <div id="eventDetailsContent">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST FEEDBACK NOTIFICATION -->
+  <div class="toast-notice" id="toastNotice">
+    <span id="toastIcon">✦</span>
+    <span id="toastMessage">Operation successful</span>
+  </div>
+
+  <!-- MINIMALIST TRON THEME SONG PLAYER CAPSULE (AUTOPLAY) -->
+  <div class="cyber-music-capsule playing" id="cyberMusicCapsule" role="region" aria-label="Theme Song Player">
+    <!-- Dedicated YouTube Audio Stream Mount (Hidden, Non-intrusive) with Autoplay -->
+    <div id="ytAudioMountContainer" style="position: absolute; width: 1px; height: 1px; opacity: 0.001; pointer-events: none; overflow: hidden; bottom: 0; left: 0;">
+      <iframe
+        id="ytVideoPlayerIframe"
+        src="https://www.youtube-nocookie.com/embed/FXITAw5nY8I?enablejsapi=1&autoplay=1&playsinline=1&rel=0&modestbranding=1"
+        title="Theme Song: Fort Minor - Remember the Name"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <!-- Capsule Controls Bar (Minimalist Single-Row Pill) -->
+    <div class="music-capsule-bar">
+      <!-- Play / Pause Circular Button -->
+      <button class="music-play-btn" id="musicPlayBtn" type="button" title="Play or Pause Theme Song" aria-label="Play or Pause Theme Song">
+        <span class="music-play-icon" id="musicPlayIcon">⏸</span>
+      </button>
+
+      <!-- 4-Bar Equalizer Visualizer -->
+      <div class="music-eq" id="musicEq" title="Audio Visualizer">
+        <span class="eq-bar bar-1"></span>
+        <span class="eq-bar bar-2"></span>
+        <span class="eq-bar bar-3"></span>
+        <span class="eq-bar bar-4"></span>
+      </div>
+
+      <!-- Minimal Track Info -->
+      <div class="music-info" id="musicInfoWrap">
+        <div class="music-title" id="musicTitleText">REMEMBER THE NAME</div>
+        <div class="music-status" id="musicStatusText">Playing: Fort Minor</div>
+      </div>
+
+      <!-- Mini Control Toggles -->
+      <div class="music-extra-controls">
+        <!-- Mute / Unmute Button -->
+        <button class="music-ctrl-btn" id="musicMuteBtn" type="button" title="Mute / Unmute" aria-label="Mute or Unmute">
+          <span id="musicMuteIcon">🔊</span>
+        </button>
+
+        <!-- External YouTube Link -->
+        <a href="https://youtu.be/FXITAw5nY8I" target="_blank" rel="noopener noreferrer" class="music-ctrl-btn" title="Open directly in YouTube" aria-label="Open YouTube">
+          <span>↗</span>
+        </a>
+
+        <!-- Collapse into mini token -->
+        <button class="music-ctrl-btn" id="musicCollapseBtn" type="button" title="Minimize to icon" aria-label="Minimize to icon">
+          <span id="musicCollapseIcon">−</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- VANILLA JAVASCRIPT APPLICATION CORE -->
+  <!-- ========================================== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ----------------------------------------------------
+      // 1. DYNAMIC HEADER HEIGHT CALCULATION (TABLET & MOBILE)
+      // ----------------------------------------------------
+      function updateHeaderHeight() {
+        const header = document.getElementById('appHeader');
+        if (header) {
+          const h = header.offsetHeight;
+          document.documentElement.style.setProperty('--header-height', h + 'px');
+        }
+      }
+      window.addEventListener('resize', updateHeaderHeight);
+      window.addEventListener('orientationchange', updateHeaderHeight);
+      setTimeout(updateHeaderHeight, 150);
+
+      // ----------------------------------------------------
+      // 2. FIREBASE INITIALIZATION & CONFIGURATION
+      // ----------------------------------------------------
+      const firebaseConfig = {
+        apiKey: "AIzaSyAR5GdrmL5XfVt_uWxX2J1tCwCtUF8pYNk",
+        authDomain: "aladdin-english-game.firebaseapp.com",
+        databaseURL: "https://aladdin-english-game-default-rtdb.firebaseio.com",
+        projectId: "aladdin-english-game",
+        storageBucket: "aladdin-english-game.firebasestorage.app",
+        messagingSenderId: "299335316128",
+        appId: "1:299335316128:web:c1e8e96eab366a4a57cfc5",
+        measurementId: "G-SYP3WQXGP5"
+      };
+
+      let database = null;
+      let isFirebaseOnline = false;
+
+      try {
+        if (typeof firebase !== 'undefined') {
+          firebase.initializeApp(firebaseConfig);
+          database = firebase.database();
+          isFirebaseOnline = true;
+          console.log('[SRTNP Portal] Firebase RTDB connected successfully.');
+        } else {
+          console.warn('[SRTNP Portal] Firebase SDK not loaded, using resilient local storage fallback.');
+        }
+      } catch (err) {
+        console.warn('[SRTNP Portal] Firebase init note:', err.message);
+      }
+
+      // Password for Admin Dashboard
+      const ADMIN_PASSCODE = "ANNE_TEACHER_2026";
+      const GOAL_TARGET_STEPS = 310000; // 31 days * 10,000 steps
+
+      // Default Program Event Definitions (Editable by Admin & Synced via Firebase)
+      const DEFAULT_EVENTS = {
+        stride: {
+          id: "stride",
+          title: "STRIDE 10K CHALLENGE",
+          badge: "Flagship Challenge",
+          dateRow: "📅 19/10/2026 – 18/11/2026",
+          datesRaw: "19/10/2026 – 18/11/2026",
+          venue: "SRTNP Campus & Daily Living",
+          time: "Daily All Day",
+          accentColor: "mint",
+          metaList: [
+            { icon: "⚡", label: "Target:", text: "10,000 steps/day (310,000 cumulative steps)." },
+            { icon: "👟", label: "Tracking:", text: "Strava, Garmin, Apple Health, Pedometer." },
+            { icon: "🏅", label: "Awards:", text: "Top Muallim & Muallimah grand prizes." }
+          ],
+          detailsHeader: "🏃 FLAGSHIP CUMULATIVE CHALLENGE",
+          detailsDescription: "Conquer the 31-day challenge by recording 10,000 steps each day for wellness, endurance, and camaraderie. Upload your step proofs daily to climb the leaderboard!",
+          detailsSchedule: "• Challenge Period: 19 Oct 2026 – 18 Nov 2026 (31 Days)\r\n• Daily Target: 10,000 steps (Total: 310,000 steps)\r\n• Eligible Apps: Strava, Garmin, Apple Health, Samsung Health, or any Pedometer",
+          detailsBullets: "Prizes awarded for 1st, 2nd, and 3rd place Muallim and Muallimah.\r\nCatch-up entries are supported for missed logs.\r\nProof screenshots must show step count and date.",
+          icsTitle: "STRIDE 10K CHALLENGE",
+          icsStart: "20261019",
+          icsEnd: "20261118"
+        },
+        smash: {
+          id: "smash",
+          title: "SMASH & CONNECT",
+          badge: "Court Sports",
+          dateRow: "🏸 3 & 4 November 2026",
+          datesRaw: "3 & 4 November 2026",
+          venue: "Dewan Al-Falah / Court SRTNP",
+          time: "5:00 PM – 7:00 PM",
+          accentColor: "blue",
+          metaList: [
+            { icon: "✦", label: "Muallimah Session:", text: "3/11/2026 (5:00 PM – 7:00 PM)" },
+            { icon: "✦", label: "Muallim Session:", text: "4/11/2026 (5:00 PM – 7:00 PM)" },
+            { icon: "📍", label: "Venue:", text: "Dewan Al-Falah / Court SRTNP." }
+          ],
+          detailsHeader: "🏸 COURT SPORTS TOURNAMENT",
+          detailsDescription: "Recharge your physical stamina and build camaraderie on the court! A high-spirited badminton meet designed for all skill levels among SRTNP staff.",
+          detailsSchedule: "• Muallimah: 3/11/2026 (5:00 PM – 7:00 PM)\r\n• Muallim: 4/11/2026 (5:00 PM – 7:00 PM)",
+          detailsBullets: "Format: Doubles Round-Robin & Friendly Rally.\r\nAttire: Sporty, compliant sports gear & court shoes.\r\nRefreshments & isotonic drinks provided.",
+          icsTitle: "SMASH & CONNECT (Badminton)",
+          icsStart: "20261103T170000",
+          icsEnd: "20261104T190000"
+        },
+        pickleball: {
+          id: "pickleball",
+          title: "PADDLE UP",
+          badge: "Trend Sport",
+          dateRow: "🏓 28 & 29 October 2026",
+          datesRaw: "28 & 29 October 2026",
+          venue: "Pickleball Court SRTNP",
+          time: "5:00 PM – 7:00 PM",
+          accentColor: "purple",
+          metaList: [
+            { icon: "✦", label: "Muallimah Session:", text: "28/10/2026 (5:00 PM – 7:00 PM)" },
+            { icon: "✦", label: "Muallim Session:", text: "29/10/2026 (5:00 PM – 7:00 PM)" },
+            { icon: "🏓", label: "Equipment:", text: "Paddles and beginner training provided!" }
+          ],
+          detailsHeader: "🏓 TREND SPORT CLINIC & MATCH",
+          detailsDescription: "Discover why Pickleball is the fastest growing sport! Low-impact, easy to learn, and intensely fun for physical well-being.",
+          detailsSchedule: "• Muallimah: 28/10/2026 (5:00 PM – 7:00 PM)\r\n• Muallim: 29/10/2026 (5:00 PM – 7:00 PM)",
+          detailsBullets: "Paddles and perforated game balls provided on court.\r\n15-minute beginners coaching clinic prior to play.\r\nMuallimah and Muallim exclusive court privacy guaranteed.",
+          icsTitle: "PADDLE UP (Pickleball)",
+          icsStart: "20261028T170000",
+          icsEnd: "20261029T190000"
+        },
+        burnout: {
+          id: "burnout",
+          title: "EMPTY CUPS CAN'T POUR: BURNOUT TANPA RASA BERSALAH",
+          badge: "Wellness Retreat",
+          dateRow: "☕ 24/10/2026 (8:00 AM – 9:00 AM)",
+          datesRaw: "24/10/2026 (8:00 AM – 9:00 AM)",
+          venue: "The Rhu Resort (Scenic Beachfront Hall)",
+          time: "8:00 AM – 9:00 AM",
+          accentColor: "gold",
+          metaList: [
+            { icon: "📍", label: "Venue:", text: "The Rhu Resort (Scenic Beachfront Hall)." },
+            { icon: "🧠", label: "Theme:", text: "Mental wellness, healthy boundaries & guilt-free rest." },
+            { icon: "🍳", label: "Inclusions:", text: "Breakfast buffet & counseling care package." }
+          ],
+          detailsHeader: "☕ MENTAL WELLNESS RETREAT",
+          detailsDescription: "\"You cannot pour from an empty cup.\" Dedicated exclusively to educators and staff to unwind, reflect, and master practical psychological self-care tools.",
+          detailsSchedule: "• Date: 24/10/2026 (Saturday) · 8:00 AM – 9:00 AM\r\n• Venue: The Rhu Resort (Scenic Beachfront Hall)",
+          detailsBullets: "Keynote: Certified Senior Clinical Counselor.\r\nWorkshop: Stress fatigue boundaries and guilt-free recovery.\r\nComplimentary Resort Breakfast Buffet & Wellness Kit included.",
+          icsTitle: "EMPTY CUPS CANNOT POUR: BURNOUT TANPA RASA BERSALAH",
+          icsStart: "20261024T080000",
+          icsEnd: "20261024T090000"
+        }
+      };
+
+      // In-Memory Data Store (Cached from RTDB / LocalStorage)
+      let state = {
+        users: {},       // staffId -> user profile
+        stepLogs: {},    // logKey -> step log object
+        announcement: "🌟 WELCOME TO SRTNP COUNSELING MONTH 2026! • 🏃 STRIDE 10K CHALLENGE IS LIVE (19 OCT – 18 NOV) • 🏸 SMASH & CONNECT (3 & 4 NOV) • 🏓 PADDLE UP PICKLEBALL (28 & 29 OCT) • ☕ 'EMPTY CUPS CAN'T POUR' AT THE RHU RESORT (24 OCT) • LOG YOUR DAILY STEPS & CLIMB THE LEADERBOARD!",
+        events: JSON.parse(JSON.stringify(DEFAULT_EVENTS)),
+        currentStaff: null,
+        soundEnabled: true,
+        leaderboardFilter: 'all',
+        searchQuery: '',
+        pendingAdminEventKey: null
+      };
+
+      // ----------------------------------------------------
+      // 3. SYNTHESIZED WEB AUDIO API SOUND SYSTEM
+      // ----------------------------------------------------
+      let audioCtx = null;
+      function playTone(freq, type = 'sine', duration = 0.12, vol = 0.15) {
+        if (!state.soundEnabled) return;
+        try {
+          if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + duration);
+        } catch (e) {}
+      }
+
+      function sfxClick() { playTone(880, 'sine', 0.08, 0.08); }
+      function sfxSuccess() {
+        playTone(523.25, 'triangle', 0.1, 0.12);
+        setTimeout(() => playTone(659.25, 'triangle', 0.1, 0.12), 70);
+        setTimeout(() => playTone(1046.50, 'sine', 0.2, 0.15), 140);
+      }
+      function sfxCyberAlert() {
+        playTone(330, 'sawtooth', 0.12, 0.1);
+        setTimeout(() => playTone(440, 'sawtooth', 0.18, 0.12), 90);
+      }
+
+      // ----------------------------------------------------
+      // 4. HTML5 CANVAS BACKGROUND ANIMATION
+      // ----------------------------------------------------
+      const canvas = document.getElementById('tronCanvas');
+      const ctx = canvas.getContext('2d');
+      let cw = window.innerWidth;
+      let ch = window.innerHeight;
+      let particles = [];
+      let gridOffset = 0;
+
+      function resizeCanvas() {
+        cw = canvas.width = window.innerWidth;
+        ch = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      for (let i = 0; i < 35; i++) {
+        particles.push({
+          x: Math.random() * cw,
+          y: Math.random() * ch,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          radius: Math.random() * 2 + 1,
+          color: Math.random() > 0.5 ? '#00ffcc' : (Math.random() > 0.5 ? '#00d2ff' : '#b026ff'),
+          alpha: Math.random() * 0.5 + 0.2
+        });
+      }
+
+      function drawTronScene() {
+        ctx.clearRect(0, 0, cw, ch);
+        const horizonY = ch * 0.64;
+        const vanishX = cw * 0.5;
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(0, 210, 255, 0.1)';
+        for (let x = -cw * 0.5; x <= cw * 1.5; x += 100) {
+          ctx.beginPath();
+          ctx.moveTo(vanishX, horizonY);
+          ctx.lineTo(x, ch);
+          ctx.stroke();
+        }
+
+        gridOffset = (gridOffset + 0.35) % 40;
+        ctx.strokeStyle = 'rgba(0, 255, 204, 0.12)';
+        for (let y = horizonY + gridOffset; y < ch; y += Math.max(12, (y - horizonY) * 0.3)) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(cw, y);
+          ctx.stroke();
+        }
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0) p.x = cw;
+          if (p.x > cw) p.x = 0;
+          if (p.y < 0) p.y = ch;
+          if (p.y > ch) p.y = 0;
+
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.alpha;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1.0;
+
+        requestAnimationFrame(drawTronScene);
+      }
+      requestAnimationFrame(drawTronScene);
+
+      // ----------------------------------------------------
+      // 5. TOAST NOTIFICATION HELPER
+      // ----------------------------------------------------
+      const toastEl = document.getElementById('toastNotice');
+      const toastMsgEl = document.getElementById('toastMessage');
+      const toastIconEl = document.getElementById('toastIcon');
+      let toastTimer = null;
+
+      function showToast(msg, icon = '✦') {
+        if (toastTimer) clearTimeout(toastTimer);
+        toastMsgEl.textContent = msg;
+        toastIconEl.textContent = icon;
+        toastEl.classList.add('show');
+        toastTimer = setTimeout(() => {
+          toastEl.classList.remove('show');
+        }, 3200);
+      }
+
+      // ----------------------------------------------------
+      // 6. STAFF IDENTITY & SESSION MANAGEMENT
+      // ----------------------------------------------------
+      const registrationOverlay = document.getElementById('registrationOverlay');
+      const staffRegisterForm = document.getElementById('staffRegisterForm');
+      const headerStaffBadge = document.getElementById('headerStaffBadge');
+      const headerStaffNameDisplay = document.getElementById('headerStaffNameDisplay');
+      const btnOpenLoginModal = document.getElementById('btnOpenLoginModal');
+      const cardStaffName = document.getElementById('cardStaffName');
+      const cardStaffId = document.getElementById('cardStaffId');
+      const cardStaffPedometer = document.getElementById('cardStaffPedometer');
+      const cardStaffInitials = document.getElementById('cardStaffInitials');
+      const btnCloseRegistrationModal = document.getElementById('btnCloseRegistrationModal');
+      const btnExplorePortalFirst = document.getElementById('btnExplorePortalFirst');
+
+      function initStaffSession() {
+        const savedStaffId = localStorage.getItem('srtnp_staff_id');
+        const savedData = localStorage.getItem('srtnp_staff_data');
+
+        if (savedStaffId) {
+          if (savedData) {
+            try {
+              state.currentStaff = JSON.parse(savedData);
+            } catch (e) {
+              state.currentStaff = { staffId: savedStaffId, name: savedStaffId, category: 'Academic', pedometerId: 'Pedometer' };
+            }
+          } else {
+            state.currentStaff = { staffId: savedStaffId, name: savedStaffId, category: 'Academic', pedometerId: 'Pedometer' };
+          }
+          applyStaffSession(state.currentStaff);
+          registrationOverlay.classList.remove('active');
+        } else {
+          btnOpenLoginModal.style.display = 'inline-flex';
+          headerStaffBadge.style.display = 'none';
+
+          const dismissed = sessionStorage.getItem('srtnp_reg_dismissed');
+          if (!dismissed) {
+            registrationOverlay.classList.add('active');
+          }
+        }
+      }
+
+      function applyStaffSession(profile) {
+        state.currentStaff = profile;
+        localStorage.setItem('srtnp_staff_id', profile.staffId);
+        localStorage.setItem('srtnp_staff_data', JSON.stringify(profile));
+
+        headerStaffNameDisplay.textContent = profile.name.split(' ')[0] || profile.name;
+        headerStaffBadge.style.display = 'inline-flex';
+        btnOpenLoginModal.style.display = 'none';
+
+        cardStaffName.textContent = profile.name;
+        cardStaffId.textContent = profile.staffId;
+        cardStaffPedometer.textContent = (profile.category || 'Staff') + ' · ' + (profile.pedometerId || 'Pedometer');
+
+        const parts = profile.name.trim().split(/\s+/);
+        let initials = 'ST';
+        if (parts.length >= 2) {
+          initials = (parts[0][0] + parts[1][0]).toUpperCase();
+        } else if (parts.length === 1 && parts[0].length >= 2) {
+          initials = parts[0].substring(0, 2).toUpperCase();
+        }
+        cardStaffInitials.textContent = initials;
+
+        updatePersonalProgress();
+      }
+
+      function closeRegistration() {
+        registrationOverlay.classList.remove('active');
+        sessionStorage.setItem('srtnp_reg_dismissed', 'true');
+        sfxClick();
+      }
+
+      btnCloseRegistrationModal.addEventListener('click', closeRegistration);
+      btnExplorePortalFirst.addEventListener('click', function() {
+        closeRegistration();
+        showToast('Browsing portal as guest. Tap "Login" to track steps.', '👋');
+      });
+
+      registrationOverlay.addEventListener('click', function(e) {
+        if (e.target === registrationOverlay) {
+          closeRegistration();
+        }
+      });
+
+      // Handle Registration Submit
+      staffRegisterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const fullName = document.getElementById('regFullName').value.trim();
+        const staffId = document.getElementById('regStaffId').value.trim().toUpperCase();
+        const phone = document.getElementById('regPhone').value.trim();
+        const category = document.getElementById('regCategory').value;
+        const pedometer = document.getElementById('regPedometer').value.trim();
+
+        if (!fullName || !staffId || !phone) {
+          showToast('Please fill in all required fields.', '⚠️');
+          return;
+        }
+
+        const profile = {
+          name: fullName,
+          staffId: staffId,
+          phone: phone,
+          category: category,
+          pedometerId: pedometer,
+          registeredAt: new Date().toISOString()
+        };
+
+        if (isFirebaseOnline && database) {
+          database.ref('counseling2026/users/' + staffId).set(profile).catch(err => {
+            console.warn('[Firebase] User save note:', err.message);
+          });
+        }
+
+        state.users[staffId] = profile;
+        saveLocalBackup();
+
+        applyStaffSession(profile);
+        registrationOverlay.classList.remove('active');
+        sfxSuccess();
+        showToast('Welcome, ' + fullName + '! Registration complete.', '🎉');
+      });
+
+      // Quick Login Handlers
+      document.getElementById('btnToggleQuickLogin').addEventListener('click', function() {
+        const box = document.getElementById('quickLoginBox');
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
+      });
+
+      document.getElementById('btnDoQuickLogin').addEventListener('click', function() {
+        const id = document.getElementById('loginStaffIdInput').value.trim().toUpperCase();
+        if (!id) return;
+
+        if (state.users[id]) {
+          applyStaffSession(state.users[id]);
+          registrationOverlay.classList.remove('active');
+          sfxSuccess();
+          showToast('Welcome back, ' + state.users[id].name + '!', '⚡');
+        } else if (isFirebaseOnline && database) {
+          database.ref('counseling2026/users/' + id).once('value').then(snapshot => {
+            const data = snapshot.val();
+            if (data) {
+              state.users[id] = data;
+              applyStaffSession(data);
+              registrationOverlay.classList.remove('active');
+              sfxSuccess();
+              showToast('Welcome back, ' + data.name + '!', '⚡');
+            } else {
+              const fallbackProfile = { name: 'Staff ' + id, staffId: id, category: 'Academic', pedometerId: 'Pedometer', phone: '-' };
+              applyStaffSession(fallbackProfile);
+              registrationOverlay.classList.remove('active');
+              showToast('Signed in as ' + id, '⚡');
+            }
+          });
+        } else {
+          const fallbackProfile = { name: 'Staff ' + id, staffId: id, category: 'Academic', pedometerId: 'Pedometer', phone: '-' };
+          applyStaffSession(fallbackProfile);
+          registrationOverlay.classList.remove('active');
+          showToast('Signed in as ' + id, '⚡');
+        }
+      });
+
+      // Switch Account Handlers
+      function handleSwitchStaff() {
+        sfxClick();
+        registrationOverlay.classList.add('active');
+      }
+      document.getElementById('btnSwitchStaff').addEventListener('click', handleSwitchStaff);
+      document.getElementById('btnChangeAccount').addEventListener('click', handleSwitchStaff);
+      btnOpenLoginModal.addEventListener('click', handleSwitchStaff);
+
+      // Sound Toggle
+      document.getElementById('btnToggleSound').addEventListener('click', function() {
+        state.soundEnabled = !state.soundEnabled;
+        document.getElementById('soundIcon').textContent = state.soundEnabled ? '🔊' : '🔇';
+        sfxClick();
+        showToast(state.soundEnabled ? 'Tron Audio Effects Enabled' : 'Tron Audio Muted', '🎧');
+      });
+
+      // ----------------------------------------------------
+      // 7. STEP ENTRY FORM & COMPRESSION
+      // ----------------------------------------------------
+      const stepDateInput = document.getElementById('stepDateInput');
+      const stepCountInput = document.getElementById('stepCountInput');
+      const stepDistanceInput = document.getElementById('stepDistanceInput');
+      const proofFileInput = document.getElementById('proofFileInput');
+      const proofPreviewBox = document.getElementById('proofPreviewBox');
+      const proofPreviewImg = document.getElementById('proofPreviewImg');
+      const btnRemoveProof = document.getElementById('btnRemoveProof');
+      const stepEntryForm = document.getElementById('stepEntryForm');
+
+      const todayISO = new Date().toISOString().split('T')[0];
+      stepDateInput.value = todayISO;
+
+      stepCountInput.addEventListener('input', function() {
+        const steps = parseInt(stepCountInput.value, 10);
+        if (!isNaN(steps) && steps > 0 && !stepDistanceInput.dataset.manual) {
+          const km = (steps * 0.00075).toFixed(2);
+          stepDistanceInput.value = km;
+        }
+      });
+
+      stepDistanceInput.addEventListener('input', function() {
+        stepDistanceInput.dataset.manual = 'true';
+      });
+
+      let currentProofBase64 = null;
+
+      function handleImageUpload(file) {
+        if (!file || !file.type.startsWith('image/')) {
+          showToast('Please upload a valid image file.', '⚠️');
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const img = new Image();
+          img.onload = function() {
+            const maxDim = 800;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxDim || height > maxDim) {
+              if (width > height) {
+                height = Math.round((height * maxDim) / width);
+                width = maxDim;
+              } else {
+                width = Math.round((width * maxDim) / height);
+                height = maxDim;
+              }
+            }
+
+            const compCanvas = document.createElement('canvas');
+            compCanvas.width = width;
+            compCanvas.height = height;
+            const compCtx = compCanvas.getContext('2d');
+            compCtx.drawImage(img, 0, 0, width, height);
+
+            currentProofBase64 = compCanvas.toDataURL('image/jpeg', 0.7);
+            proofPreviewImg.src = currentProofBase64;
+            proofPreviewBox.style.display = 'block';
+            sfxClick();
+            showToast('Proof screenshot attached & compressed.', '📸');
+          };
+          img.src = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      proofFileInput.addEventListener('change', function(e) {
+        if (e.target.files && e.target.files[0]) {
+          handleImageUpload(e.target.files[0]);
+        }
+      });
+
+      btnRemoveProof.addEventListener('click', function() {
+        currentProofBase64 = null;
+        proofFileInput.value = '';
+        proofPreviewBox.style.display = 'none';
+        proofPreviewImg.src = '';
+        sfxClick();
+      });
+
+      // Submit Step Log
+      stepEntryForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!state.currentStaff) {
+          registrationOverlay.classList.add('active');
+          showToast('Please register or log in with your Staff ID first.', '⚠️');
+          return;
+        }
+
+        const date = stepDateInput.value;
+        const steps = parseInt(stepCountInput.value, 10);
+        let distanceKm = parseFloat(stepDistanceInput.value) || (steps * 0.00075);
+        distanceKm = parseFloat(distanceKm.toFixed(2));
+
+        if (isNaN(steps) || steps <= 0) {
+          showToast('Please enter a valid step count.', '⚠️');
+          return;
+        }
+
+        const timestamp = Date.now();
+        const staffId = state.currentStaff.staffId;
+        const logId = `${staffId}_${timestamp}`;
+
+        const logRecord = {
+          id: logId,
+          staffId: staffId,
+          staffName: state.currentStaff.name,
+          category: state.currentStaff.category || 'Academic',
+          pedometerId: state.currentStaff.pedometerId || 'Pedometer',
+          date: date,
+          steps: steps,
+          distanceKm: distanceKm,
+          proofUrl: currentProofBase64 || '',
+          timestamp: timestamp
+        };
+
+        if (isFirebaseOnline && database) {
+          database.ref('counseling2026/step_logs/' + logId).set(logRecord).then(() => {
+            console.log('[Firebase] Step log saved.');
+          }).catch(err => {
+            console.warn('[Firebase] Step log write note:', err.message);
+          });
+        }
+
+        state.stepLogs[logId] = logRecord;
+        saveLocalBackup();
+
+        stepCountInput.value = '';
+        stepDistanceInput.value = '';
+        stepDistanceInput.removeAttribute('data-manual');
+        currentProofBase64 = null;
+        proofFileInput.value = '';
+        proofPreviewBox.style.display = 'none';
+
+        sfxSuccess();
+        showToast(`Logged ${steps.toLocaleString()} steps successfully!`, '⚡');
+
+        updatePersonalProgress();
+        renderLeaderboard();
+        updateKPIs();
+      });
+
+      // ----------------------------------------------------
+      // 8. REAL-TIME DATA LISTENERS & AGGREGATION
+      // ----------------------------------------------------
+      function setupFirebaseListeners() {
+        if (!isFirebaseOnline || !database) {
+          loadLocalBackup();
+          return;
+        }
+
+        database.ref('counseling2026/announcement').on('value', snapshot => {
+          const val = snapshot.val();
+          if (val && typeof val === 'string') {
+            state.announcement = val;
+            updateMarqueeDisplay(val);
+          } else {
+            database.ref('counseling2026/announcement').set(state.announcement);
+          }
+        });
+
+        database.ref('counseling2026/step_logs').on('value', snapshot => {
+          const val = snapshot.val() || {};
+          state.stepLogs = val;
+          saveLocalBackup();
+          renderLeaderboard();
+          updatePersonalProgress();
+          updateKPIs();
+          if (document.getElementById('adminDashboardContent').style.display !== 'none') {
+            renderAdminModerationTable();
+          }
+        });
+
+        database.ref('counseling2026/users').on('value', snapshot => {
+          const val = snapshot.val() || {};
+          state.users = val;
+          saveLocalBackup();
+          renderLeaderboard();
+          updateKPIs();
+          if (document.getElementById('adminDashboardContent').style.display !== 'none') {
+            renderAdminRosterTable();
+          }
+        });
+
+        // Real-Time Event Details Listener
+        database.ref('counseling2026/events').on('value', snapshot => {
+          const val = snapshot.val();
+          if (val && typeof val === 'object') {
+            Object.keys(DEFAULT_EVENTS).forEach(k => {
+              if (val[k]) {
+                state.events[k] = Object.assign({}, DEFAULT_EVENTS[k], val[k]);
+              }
+            });
+            saveLocalBackup();
+            renderEventsCards();
+          }
+        });
+      }
+
+      function updateMarqueeDisplay(text) {
+        const marqueeEl = document.getElementById('marqueeTextContent');
+        if (marqueeEl) marqueeEl.textContent = text;
+        const adminPrev = document.getElementById('adminCurrentMarqueePreview');
+        if (adminPrev) adminPrev.textContent = text;
+      }
+
+      function saveLocalBackup() {
+        try {
+          localStorage.setItem('srtnp_cached_users', JSON.stringify(state.users));
+          localStorage.setItem('srtnp_cached_logs', JSON.stringify(state.stepLogs));
+          localStorage.setItem('srtnp_cached_announcement', state.announcement);
+          localStorage.setItem('srtnp_cached_events', JSON.stringify(state.events));
+        } catch (e) {}
+      }
+
+      function loadLocalBackup() {
+        try {
+          const u = localStorage.getItem('srtnp_cached_users');
+          const l = localStorage.getItem('srtnp_cached_logs');
+          const a = localStorage.getItem('srtnp_cached_announcement');
+          const ev = localStorage.getItem('srtnp_cached_events');
+          if (u) state.users = JSON.parse(u);
+          if (l) state.stepLogs = JSON.parse(l);
+          if (a) {
+            state.announcement = a;
+            updateMarqueeDisplay(a);
+          }
+          if (ev) {
+            try {
+              const parsedEv = JSON.parse(ev);
+              Object.keys(DEFAULT_EVENTS).forEach(k => {
+                if (parsedEv[k]) {
+                  state.events[k] = Object.assign({}, DEFAULT_EVENTS[k], parsedEv[k]);
+                }
+              });
+            } catch (err) {}
+          }
+        } catch (e) {}
+        renderEventsCards();
+        renderLeaderboard();
+        updatePersonalProgress();
+        updateKPIs();
+      }
+
+      // ----------------------------------------------------
+      // 9. PERSONAL STATS & PROGRESS UPDATE
+      // ----------------------------------------------------
+      function updatePersonalProgress() {
+        if (!state.currentStaff) {
+          document.getElementById('userProgressPct').textContent = '0%';
+          document.getElementById('userProgressBar').style.width = '0%';
+          document.getElementById('userTotalStepsFormatted').textContent = '0';
+          document.getElementById('userLogCount').textContent = '0 entries';
+          return;
+        }
+
+        const myId = state.currentStaff.staffId;
+        let myTotalSteps = 0;
+        let myTotalKm = 0;
+        const myLogs = [];
+
+        Object.values(state.stepLogs).forEach(log => {
+          if (log.staffId === myId) {
+            myTotalSteps += (parseInt(log.steps, 10) || 0);
+            myTotalKm += (parseFloat(log.distanceKm) || 0);
+            myLogs.push(log);
+          }
+        });
+
+        myLogs.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+        const pct = Math.min(100, Math.round((myTotalSteps / GOAL_TARGET_STEPS) * 100));
+        document.getElementById('userProgressPct').textContent = pct + '%';
+        document.getElementById('userProgressBar').style.width = pct + '%';
+        document.getElementById('userTotalStepsFormatted').textContent = myTotalSteps.toLocaleString();
+        document.getElementById('userLogCount').textContent = `${myLogs.length} entries · ${myTotalKm.toFixed(1)} KM`;
+
+        const container = document.getElementById('userLogListContainer');
+        if (myLogs.length === 0) {
+          container.innerHTML = `
+            <div style="text-align: center; padding: 16px; font-size: 11px; color: var(--text-muted);">
+              No step entries logged yet. Input your steps above to begin your journey!
+            </div>
+          `;
+        } else {
+          let html = '<div style="display: flex; flex-direction: column; gap: 6px;">';
+          myLogs.slice(0, 10).forEach(log => {
+            html += `
+              <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(11, 13, 23, 0.6); padding: 7px 10px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.05); gap: 6px;">
+                <div style="min-width: 0;">
+                  <span style="font-weight: 700; color: #ffffff; font-size: 12px;">${log.date}</span>
+                  <span style="color: var(--neon-mint); font-weight: 800; margin-left: 6px; font-variant-numeric: tabular-nums;">${(parseInt(log.steps, 10) || 0).toLocaleString()} steps</span>
+                  <span style="color: var(--text-muted); font-size: 10px; margin-left: 4px;">(${log.distanceKm || 0} km)</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
+                  ${log.proofUrl ? `<button class="btn btn-outline btn-sm" style="padding: 2px 6px; font-size: 10px; min-height: 22px; color: var(--neon-mint); border-color: var(--neon-mint);" onclick="window.viewProofModal('${escapeStr(log.id)}')">Proof</button>` : '<span style="font-size: 10px; color: var(--text-muted);">No Proof</span>'}
+                  <button class="btn btn-outline btn-sm" style="padding: 2px 6px; font-size: 10px; min-height: 22px; color: var(--neon-coral); border-color: rgba(255,51,102,0.3);" onclick="window.deleteUserLog('${escapeStr(log.id)}')">×</button>
+                </div>
+              </div>
+            `;
+          });
+          html += '</div>';
+          container.innerHTML = html;
+        }
+      }
+
+      window.deleteUserLog = function(logId) {
+        if (!confirm('Are you sure you want to delete this step entry?')) return;
+        if (isFirebaseOnline && database) {
+          database.ref('counseling2026/step_logs/' + logId).remove();
+        }
+        delete state.stepLogs[logId];
+        saveLocalBackup();
+        sfxClick();
+        showToast('Entry removed.', '🗑️');
+        updatePersonalProgress();
+        renderLeaderboard();
+        updateKPIs();
+      };
+
+      // ----------------------------------------------------
+      // 10. LEADERBOARD & TRON PODIUM BAR RENDERING
+      // ----------------------------------------------------
+      function renderLeaderboard() {
+        const tbody = document.getElementById('leaderboardTableBody');
+        const filter = state.leaderboardFilter;
+        const query = state.searchQuery.toLowerCase();
+
+        // Update podium category subtitle
+        const catLbl = document.getElementById('podiumCategoryLabel');
+        if (catLbl) {
+          catLbl.textContent = filter === 'all' ? 'All Staff Standings' : `${filter} Staff Standings`;
+        }
+
+        const staffTotals = {};
+
+        Object.values(state.users).forEach(u => {
+          staffTotals[u.staffId] = {
+            staffId: u.staffId,
+            name: u.name,
+            category: u.category || 'Academic',
+            pedometerId: u.pedometerId || 'Pedometer',
+            totalSteps: 0,
+            totalDistance: 0,
+            latestProof: '',
+            logsCount: 0
+          };
+        });
+
+        Object.values(state.stepLogs).forEach(log => {
+          const sId = log.staffId;
+          if (!staffTotals[sId]) {
+            staffTotals[sId] = {
+              staffId: sId,
+              name: log.staffName || sId,
+              category: log.category || 'Academic',
+              pedometerId: log.pedometerId || 'Pedometer',
+              totalSteps: 0,
+              totalDistance: 0,
+              latestProof: '',
+              logsCount: 0
+            };
+          }
+          staffTotals[sId].totalSteps += (parseInt(log.steps, 10) || 0);
+          staffTotals[sId].totalDistance += (parseFloat(log.distanceKm) || 0);
+          staffTotals[sId].logsCount++;
+          if (log.proofUrl) {
+            staffTotals[sId].latestProof = log.proofUrl;
+            staffTotals[sId].latestLogId = log.id;
+          }
+        });
+
+        let list = Object.values(staffTotals);
+
+        if (filter !== 'all') {
+          list = list.filter(item => item.category === filter);
+        }
+
+        if (query) {
+          list = list.filter(item =>
+            item.name.toLowerCase().includes(query) ||
+            item.staffId.toLowerCase().includes(query) ||
+            item.pedometerId.toLowerCase().includes(query)
+          );
+        }
+
+        // Sort descending by total accumulated steps
+        list.sort((a, b) => b.totalSteps - a.totalSteps);
+
+        // 1. Render the Tron Podium Bar Ranking (Top 3)
+        renderTronPodium(list);
+
+        // 2. Render Full Ranked Table
+        if (list.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 24px; color: var(--text-muted);">
+                No staff participants found matching the criteria.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        let html = '';
+        list.forEach((item, index) => {
+          const rank = index + 1;
+          let rankBadgeClass = 'rank-other';
+          let rankIcon = rank;
+          if (rank === 1) {
+            rankBadgeClass = 'rank-1';
+            rankIcon = '👑 1';
+          } else if (rank === 2) {
+            rankBadgeClass = 'rank-2';
+            rankIcon = '🥈 2';
+          } else if (rank === 3) {
+            rankBadgeClass = 'rank-3';
+            rankIcon = '🥉 3';
+          }
+
+          const progressPct = Math.min(100, Math.round((item.totalSteps / GOAL_TARGET_STEPS) * 100));
+
+          html += `
+            <tr class="table-row">
+              <td>
+                <span class="rank-badge ${rankBadgeClass}">${rankIcon}</span>
+              </td>
+              <td>
+                <div class="staff-cell-name">${escapeStr(item.name)}</div>
+                <div class="staff-cell-sub">ID: ${escapeStr(item.staffId)} · ${escapeStr(item.category)} · ${escapeStr(item.pedometerId)}</div>
+              </td>
+              <td>
+                <span class="step-number-cell">${item.totalSteps.toLocaleString()}</span>
+                <span style="font-size: 10px; color: var(--text-muted); display: block;">steps</span>
+              </td>
+              <td>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <div class="progress-bar-container" style="flex-grow: 1; height: 6px; min-width: 50px;">
+                    <div class="progress-bar-fill" style="width: ${progressPct}%;"></div>
+                  </div>
+                  <span style="font-size: 10px; font-weight: 700; color: var(--neon-mint); font-variant-numeric: tabular-nums; min-width: 28px;">${progressPct}%</span>
+                </div>
+              </td>
+              <td>
+                <span style="font-size: 12px; font-weight: 600; color: #ffffff; font-variant-numeric: tabular-nums;">${item.totalDistance.toFixed(1)}</span>
+                <span style="font-size: 10px; color: var(--text-muted);">km</span>
+              </td>
+              <td style="text-align: center;">
+                ${item.latestProof ? `
+                  <button class="btn btn-mint btn-sm" style="padding: 3px 8px; font-size: 10px; min-height: 24px;" onclick="window.viewProofModal('${escapeStr(item.latestLogId)}')">
+                    Proof
+                  </button>
+                ` : `
+                  <span style="font-size: 10px; color: var(--text-muted);">None</span>
+                `}
+              </td>
+            </tr>
+          `;
+        });
+
+        tbody.innerHTML = html;
+      }
+
+      // TRON PODIUM BAR RANKING RENDERER (Classic Sports Order: #2 Left, #1 Center, #3 Right)
+      function renderTronPodium(list) {
+        const podiumGrid = document.getElementById('podiumGrid');
+        if (!podiumGrid) return;
+
+        const p1 = list[0] || null;
+        const p2 = list[1] || null;
+        const p3 = list[2] || null;
+
+        function getInitials(name) {
+          if (!name) return '—';
+          const parts = name.trim().split(/\s+/);
+          if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+          return name.substring(0, 2).toUpperCase();
+        }
+
+        function createPodiumColumnHTML(data, rankNum) {
+          const isRank1 = rankNum === 1;
+          const isRank2 = rankNum === 2;
+          const isRank3 = rankNum === 3;
+          const colClass = `podium-${rankNum}`;
+
+          if (!data || data.totalSteps === 0) {
+            return `
+              <div class="podium-col ${colClass} podium-empty-col">
+                <div class="podium-card">
+                  <span class="podium-crown-tag">${isRank1 ? '👑 #1 Leader' : (isRank2 ? '🥈 #2 Runner-Up' : '🥉 #3 2nd Runner-Up')}</span>
+                  <div class="podium-avatar">?</div>
+                  <div class="podium-name">Contender Open</div>
+                  <div class="podium-sub">Awaiting Steps</div>
+                  <div class="podium-steps">—</div>
+                  <div class="podium-steps-label">0 steps</div>
+                </div>
+                <div class="podium-pillar">
+                  <div class="podium-number">${rankNum}</div>
+                  <div class="podium-pct">0%</div>
+                </div>
+              </div>
+            `;
+          }
+
+          const pct = Math.min(100, Math.round((data.totalSteps / GOAL_TARGET_STEPS) * 100));
+          const badgeText = isRank1 ? '👑 #1 CHAMPION' : (isRank2 ? '🥈 #2 RUNNER-UP' : '🥉 #3 3RD PLACE');
+
+          return `
+            <div class="podium-col ${colClass}">
+              <div class="podium-card">
+                <span class="podium-crown-tag">${badgeText}</span>
+                <div class="podium-avatar">${getInitials(data.name)}</div>
+                <div class="podium-name" title="${escapeStr(data.name)}">${escapeStr(data.name)}</div>
+                <div class="podium-sub">${escapeStr(data.staffId)} · ${escapeStr(data.category)}</div>
+                <div class="podium-steps">${data.totalSteps.toLocaleString()}</div>
+                <div class="podium-steps-label">${data.totalDistance.toFixed(1)} km logged</div>
+                ${data.latestProof ? `
+                  <button class="btn btn-outline btn-sm" style="margin-top: 4px; padding: 1px 6px; font-size: 9px; min-height: 20px; border-color: currentColor;" onclick="window.viewProofModal('${escapeStr(data.latestLogId)}')">
+                    View Proof
+                  </button>
+                ` : ''}
+              </div>
+              <div class="podium-pillar">
+                <div class="podium-number">${rankNum}</div>
+                <div class="podium-pct">${pct}% of 310K</div>
+              </div>
+            </div>
+          `;
+        }
+
+        // Render in Sports Podium Order: Rank 2 (Left), Rank 1 (Center & Elevated), Rank 3 (Right)
+        podiumGrid.innerHTML = `
+          ${createPodiumColumnHTML(p2, 2)}
+          ${createPodiumColumnHTML(p1, 1)}
+          ${createPodiumColumnHTML(p3, 3)}
+        `;
+      }
+
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          state.leaderboardFilter = this.dataset.filter;
+          sfxClick();
+          renderLeaderboard();
+        });
+      });
+
+      document.getElementById('leaderboardSearchInput').addEventListener('input', function(e) {
+        state.searchQuery = e.target.value.trim();
+        renderLeaderboard();
+      });
+
+      document.getElementById('btnRefreshLeaderboard').addEventListener('click', function() {
+        sfxClick();
+        renderLeaderboard();
+        updateKPIs();
+        showToast('Leaderboard refreshed.', '🔄');
+      });
+
+      // ----------------------------------------------------
+      // 11. OVERALL SCHOOL KPIS
+      // ----------------------------------------------------
+      function updateKPIs() {
+        const uniqueStaff = new Set();
+        let totalStepsAll = 0;
+
+        Object.values(state.users).forEach(u => uniqueStaff.add(u.staffId));
+        Object.values(state.stepLogs).forEach(log => {
+          uniqueStaff.add(log.staffId);
+          totalStepsAll += (parseInt(log.steps, 10) || 0);
+        });
+
+        document.getElementById('kpiTotalParticipants').textContent = uniqueStaff.size;
+        document.getElementById('kpiTotalStepsLogged').textContent = totalStepsAll.toLocaleString();
+
+        const schoolPct = uniqueStaff.size > 0 ? Math.min(100, Math.round((totalStepsAll / (uniqueStaff.size * GOAL_TARGET_STEPS)) * 100)) : 0;
+        document.getElementById('kpiGoalProgress').textContent = schoolPct + '%';
+      }
+
+      // ----------------------------------------------------
+      // 12. PROOF VIEWER MODAL
+      // ----------------------------------------------------
+      const proofViewModal = document.getElementById('proofViewModal');
+      const proofModalImg = document.getElementById('proofModalImg');
+      const proofModalStaffName = document.getElementById('proofModalStaffName');
+      const proofModalMeta = document.getElementById('proofModalMeta');
+
+      window.viewProofModal = function(logId) {
+        const log = state.stepLogs[logId];
+        if (!log || !log.proofUrl) {
+          showToast('No screenshot proof available for this log.', 'ℹ️');
+          return;
+        }
+
+        proofModalStaffName.textContent = log.staffName || log.staffId;
+        proofModalMeta.textContent = `Date: ${log.date} · Steps: ${(parseInt(log.steps, 10) || 0).toLocaleString()} · Distance: ${log.distanceKm || 0} KM`;
+        proofModalImg.src = log.proofUrl;
+        proofViewModal.classList.add('active');
+        sfxClick();
+      };
+
+      document.getElementById('btnCloseProofModal').addEventListener('click', function() {
+        proofViewModal.classList.remove('active');
+        sfxClick();
+      });
+
+      proofViewModal.addEventListener('click', function(e) {
+        if (e.target === proofViewModal) {
+          proofViewModal.classList.remove('active');
+        }
+      });
+
+      // ----------------------------------------------------
+      // 13. DYNAMIC PROGRAM EVENTS RENDERING & DETAILS MODAL
+      // ----------------------------------------------------
+      const eventDetailsModal = document.getElementById('eventDetailsModal');
+      const eventDetailsContent = document.getElementById('eventDetailsContent');
+
+      function renderEventsCards() {
+        if (!state.events) return;
+        ['stride', 'smash', 'pickleball', 'burnout'].forEach(key => {
+          const ev = state.events[key];
+          if (!ev) return;
+
+          const badgeEl = document.getElementById('eventBadge_' + key);
+          if (badgeEl) badgeEl.textContent = ev.badge;
+
+          const dateRowEl = document.getElementById('eventDateRow_' + key);
+          if (dateRowEl) {
+            const icon = key === 'stride' ? '📅' : (key === 'smash' ? '🏸' : (key === 'pickleball' ? '🏓' : '☕'));
+            dateRowEl.innerHTML = `<span>${icon}</span> ${escapeStr(ev.datesRaw || ev.dateRow)}`;
+          }
+
+          const titleEl = document.getElementById('eventTitle_' + key);
+          if (titleEl) titleEl.textContent = ev.title;
+
+          const metaListEl = document.getElementById('eventMetaList_' + key);
+          if (metaListEl && Array.isArray(ev.metaList)) {
+            let metaHtml = '';
+            ev.metaList.forEach(m => {
+              metaHtml += `
+                <li class="event-meta-item">
+                  <span class="event-meta-icon">${m.icon || '✦'}</span>
+                  <span><strong>${escapeStr(m.label || '')}</strong> ${escapeStr(m.text || '')}</span>
+                </li>
+              `;
+            });
+            metaListEl.innerHTML = metaHtml;
+          }
+        });
+      }
+
+      window.openEventDetailsModal = function(key) {
+        const ev = state.events[key];
+        if (!ev) return;
+
+        let scheduleBulletsHtml = '';
+        if (ev.detailsSchedule) {
+          const lines = ev.detailsSchedule.split('\n').map(l => l.trim()).filter(Boolean);
+          lines.forEach(line => {
+            scheduleBulletsHtml += `<div style="font-size: 12px; color: ${ev.accentColor === 'blue' ? 'var(--neon-blue)' : (ev.accentColor === 'purple' ? '#e5b3ff' : (ev.accentColor === 'gold' ? 'var(--neon-gold)' : 'var(--neon-mint)'))}; margin-bottom: 2px;">${escapeStr(line)}</div>`;
+          });
+        }
+
+        let extraBulletsHtml = '';
+        if (ev.detailsBullets) {
+          const lines = ev.detailsBullets.split('\n').map(l => l.trim()).filter(Boolean);
+          lines.forEach(line => {
+            extraBulletsHtml += `<li>${escapeStr(line)}</li>`;
+          });
+        }
+
+        const borderStyle = ev.accentColor === 'blue' ? 'var(--border-blue)' : (ev.accentColor === 'purple' ? 'var(--border-purple)' : (ev.accentColor === 'gold' ? 'rgba(255, 215, 0, 0.3)' : 'var(--border-cyber)'));
+        const bgStyle = ev.accentColor === 'blue' ? 'rgba(0, 210, 255, 0.08)' : (ev.accentColor === 'purple' ? 'rgba(176, 38, 255, 0.08)' : (ev.accentColor === 'gold' ? 'rgba(255, 215, 0, 0.08)' : 'rgba(0, 255, 204, 0.08)'));
+        const btnClass = ev.accentColor === 'blue' ? 'btn-blue' : (ev.accentColor === 'purple' ? 'btn-purple' : 'btn-mint');
+
+        eventDetailsContent.innerHTML = `
+          <div class="hero-kicker" style="color: ${ev.accentColor === 'blue' ? 'var(--neon-blue)' : (ev.accentColor === 'purple' ? 'var(--neon-purple)' : (ev.accentColor === 'gold' ? 'var(--neon-gold)' : 'var(--neon-mint)'))};">
+            ${escapeStr(ev.detailsHeader || ev.badge)}
+          </div>
+          <h3 style="font-size: 20px; font-weight: 800; color: #ffffff; margin-bottom: 10px;">
+            ${escapeStr(ev.title)}
+          </h3>
+          <p style="font-size: 13px; color: #c4d3eb; line-height: 1.5; margin-bottom: 14px;">
+            ${escapeStr(ev.detailsDescription)}
+          </p>
+          <div style="background: ${bgStyle}; border: 1px solid ${borderStyle}; border-radius: 8px; padding: 12px; margin-bottom: 14px;">
+            <div style="font-weight: 700; color: #ffffff; margin-bottom: 4px; font-size: 12px;">📅 Official Program Schedule:</div>
+            ${scheduleBulletsHtml || `<div style="font-size: 12px; color: #ffffff;">${escapeStr(ev.datesRaw || ev.dateRow)}</div>`}
+            ${ev.venue ? `<div style="font-size: 12px; color: #ffffff; margin-top: 4px;"><strong>Venue:</strong> ${escapeStr(ev.venue)}</div>` : ''}
+          </div>
+          ${extraBulletsHtml ? `
+            <ul style="font-size: 12px; color: #b0bfdb; line-height: 1.7; margin-bottom: 16px; padding-left: 18px;">
+              ${extraBulletsHtml}
+            </ul>
+          ` : ''}
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn ${btnClass}" style="flex: 1;" onclick="downloadEventICSByKey('${key}'); closeEventDetailsModal();">
+              Add to Google/Apple Calendar (.ICS)
+            </button>
+            <button class="btn btn-outline event-admin-edit-btn" onclick="openAdminEventEditor('${key}'); closeEventDetailsModal();">
+              ⚙️ Admin Edit
+            </button>
+          </div>
+        `;
+        eventDetailsModal.classList.add('active');
+        sfxClick();
+      };
+
+      window.closeEventDetailsModal = function() {
+        eventDetailsModal.classList.remove('active');
+      };
+
+      document.getElementById('btnCloseEventDetailsModal').addEventListener('click', window.closeEventDetailsModal);
+      eventDetailsModal.addEventListener('click', function(e) {
+        if (e.target === eventDetailsModal) window.closeEventDetailsModal();
+      });
+
+      window.downloadEventICSByKey = function(key) {
+        const ev = state.events[key] || DEFAULT_EVENTS[key];
+        if (!ev) return;
+        downloadEventICS(ev.icsTitle || ev.title, ev.icsStart || '20261019', ev.icsEnd || '20261118', ev.detailsDescription || ev.title, ev.venue || 'SRTNP Campus');
+      };
+
+      window.downloadEventICS = function(title, dtStart, dtEnd, description, location) {
+        sfxClick();
+        const icsContent = [
+          'BEGIN:VCALENDAR',
+          'VERSION:2.0',
+          'PRODID:-//SRTNP//Counseling Month 2026//EN',
+          'CALSCALE:GREGORIAN',
+          'METHOD:PUBLISH',
+          'BEGIN:VEVENT',
+          `SUMMARY:SRTNP 2026: ${title}`,
+          `DESCRIPTION:${description}`,
+          `LOCATION:${location}`,
+          `DTSTART:${dtStart}`,
+          `DTEND:${dtEnd}`,
+          `STATUS:CONFIRMED`,
+          'END:VEVENT',
+          'END:VCALENDAR'
+        ].join('\r\n');
+
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${title.replace(/[^a-zA-Z0-9]/g, '_')}_2026.ics`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast(`Calendar reminder for "${title}" downloaded.`, '📅');
+      };
+
+      // ----------------------------------------------------
+      // 14. ADMIN DASHBOARD PANEL (PASSWORD PROTECTED)
+      // ----------------------------------------------------
+      const adminModalOverlay = document.getElementById('adminModalOverlay');
+      const adminAuthScreen = document.getElementById('adminAuthScreen');
+      const adminDashboardContent = document.getElementById('adminDashboardContent');
+      const adminPasswordInput = document.getElementById('adminPasswordInput');
+      const adminAuthError = document.getElementById('adminAuthError');
+      const btnOpenAdmin = document.getElementById('btnOpenAdmin');
+      const btnMobileAdmin = document.getElementById('btnMobileAdmin');
+      const btnCloseAdminModal = document.getElementById('btnCloseAdminModal');
+      const btnAdminLogout = document.getElementById('btnAdminLogout');
+
+      let isAdminAuthorized = false;
+
+      function openAdminConsole() {
+        sfxClick();
+        adminModalOverlay.classList.add('active');
+        if (!isAdminAuthorized) {
+          adminAuthScreen.style.display = 'block';
+          adminDashboardContent.style.display = 'none';
+          adminPasswordInput.value = '';
+          adminAuthError.style.display = 'none';
+          setTimeout(() => adminPasswordInput.focus(), 100);
+        } else {
+          adminAuthScreen.style.display = 'none';
+          adminDashboardContent.style.display = 'block';
+          renderAdminModerationTable();
+          renderAdminRosterTable();
+        }
+      }
+
+      btnOpenAdmin.addEventListener('click', openAdminConsole);
+      btnMobileAdmin.addEventListener('click', openAdminConsole);
+
+      btnCloseAdminModal.addEventListener('click', function() {
+        adminModalOverlay.classList.remove('active');
+        sfxClick();
+      });
+
+      adminModalOverlay.addEventListener('click', function(e) {
+        if (e.target === adminModalOverlay) adminModalOverlay.classList.remove('active');
+      });
+
+      function switchAdminTab(tabId) {
+        document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.admin-tab-pane').forEach(p => p.style.display = 'none');
+        const btn = document.querySelector(`.admin-tab-btn[data-tab="${tabId}"]`);
+        if (btn) btn.classList.add('active');
+        const pane = document.getElementById(tabId);
+        if (pane) pane.style.display = 'block';
+        if (tabId === 'tabRoster') {
+          renderAdminRosterTable();
+        } else if (tabId === 'tabModeration') {
+          renderAdminModerationTable();
+        }
+      }
+
+      function loadAdminEventToForm(key) {
+        const ev = state.events[key] || DEFAULT_EVENTS[key];
+        if (!ev) return;
+
+        document.getElementById('editEventKey').value = key;
+        document.getElementById('editEventTitle').value = ev.title || '';
+        document.getElementById('editEventBadge').value = ev.badge || '';
+        document.getElementById('editEventDates').value = ev.datesRaw || ev.dateRow || '';
+        document.getElementById('editEventVenue').value = ev.venue || '';
+
+        const meta1 = (ev.metaList && ev.metaList[0]) ? (ev.metaList[0].label + ' ' + ev.metaList[0].text).trim() : '';
+        const meta2 = (ev.metaList && ev.metaList[1]) ? (ev.metaList[1].label + ' ' + ev.metaList[1].text).trim() : '';
+        const meta3 = (ev.metaList && ev.metaList[2]) ? (ev.metaList[2].label + ' ' + ev.metaList[2].text).trim() : '';
+
+        document.getElementById('editMeta1').value = meta1;
+        document.getElementById('editMeta2').value = meta2;
+        document.getElementById('editMeta3').value = meta3;
+
+        document.getElementById('editEventDesc').value = ev.detailsDescription || '';
+        document.getElementById('editEventSchedule').value = ev.detailsSchedule || '';
+        document.getElementById('editEventBullets').value = ev.detailsBullets || '';
+
+        document.querySelectorAll('#adminEventSelectorStrip .event-select-pill').forEach(pill => {
+          if (pill.dataset.event === key) {
+            pill.classList.add('active');
+          } else {
+            pill.classList.remove('active');
+          }
+        });
+      }
+
+      window.openAdminEventEditor = function(key) {
+        openAdminConsole();
+        if (isAdminAuthorized) {
+          switchAdminTab('tabEvents');
+          loadAdminEventToForm(key);
+        } else {
+          state.pendingAdminEventKey = key;
+        }
+      };
+
+      document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pwd = adminPasswordInput.value.trim();
+        if (pwd === ADMIN_PASSCODE) {
+          isAdminAuthorized = true;
+          document.body.classList.add('admin-authorized');
+          adminAuthScreen.style.display = 'none';
+          adminDashboardContent.style.display = 'block';
+          sfxCyberAlert();
+          showToast('Administrative authorization granted.', '🔑');
+          renderAdminModerationTable();
+          renderAdminRosterTable();
+          document.getElementById('adminCurrentMarqueePreview').textContent = state.announcement;
+          document.getElementById('newMarqueeTextInput').value = state.announcement;
+
+          if (state.pendingAdminEventKey) {
+            switchAdminTab('tabEvents');
+            loadAdminEventToForm(state.pendingAdminEventKey);
+            state.pendingAdminEventKey = null;
+          } else {
+            loadAdminEventToForm('stride');
+          }
+        } else {
+          adminAuthError.style.display = 'block';
+          playTone(220, 'sawtooth', 0.25, 0.2);
+          showToast('Invalid security passcode.', '❌');
+        }
+      });
+
+      btnAdminLogout.addEventListener('click', function() {
+        isAdminAuthorized = false;
+        document.body.classList.remove('admin-authorized');
+        adminAuthScreen.style.display = 'block';
+        adminDashboardContent.style.display = 'none';
+        adminPasswordInput.value = '';
+        sfxClick();
+        showToast('Admin session locked.', '🔒');
+      });
+
+      // Admin Tab Navigation
+      document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const tabId = this.dataset.tab;
+          switchAdminTab(tabId);
+          sfxClick();
+        });
+      });
+
+      // Event Selector Pills in Admin Tab 2
+      document.querySelectorAll('#adminEventSelectorStrip .event-select-pill').forEach(pill => {
+        pill.addEventListener('click', function() {
+          const key = this.dataset.event;
+          loadAdminEventToForm(key);
+          sfxClick();
+        });
+      });
+
+      // Event Edit Form Submission
+      document.getElementById('adminEditEventForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const key = document.getElementById('editEventKey').value;
+        const current = state.events[key] || DEFAULT_EVENTS[key];
+
+        const updated = Object.assign({}, current, {
+          title: document.getElementById('editEventTitle').value.trim(),
+          badge: document.getElementById('editEventBadge').value.trim(),
+          datesRaw: document.getElementById('editEventDates').value.trim(),
+          venue: document.getElementById('editEventVenue').value.trim(),
+          metaList: [
+            { icon: key === 'stride' ? '⚡' : '✦', label: '', text: document.getElementById('editMeta1').value.trim() },
+            { icon: key === 'stride' ? '👟' : (key === 'burnout' ? '🧠' : '✦'), label: '', text: document.getElementById('editMeta2').value.trim() },
+            { icon: key === 'stride' ? '🏅' : (key === 'smash' ? '📍' : (key === 'pickleball' ? '🏓' : '🍳')), label: '', text: document.getElementById('editMeta3').value.trim() }
+          ],
+          detailsDescription: document.getElementById('editEventDesc').value.trim(),
+          detailsSchedule: document.getElementById('editEventSchedule').value.trim(),
+          detailsBullets: document.getElementById('editEventBullets').value.trim(),
+          icsTitle: document.getElementById('editEventTitle').value.trim()
+        });
+
+        state.events[key] = updated;
+
+        if (isFirebaseOnline && database) {
+          database.ref('counseling2026/events/' + key).set(updated);
+        }
+        saveLocalBackup();
+        renderEventsCards();
+        sfxSuccess();
+        showToast(`Event "${updated.title}" updated and broadcasted!`, '💾');
+      });
+
+      // Reset Event to Defaults
+      document.getElementById('btnResetEventDefault').addEventListener('click', function() {
+        const key = document.getElementById('editEventKey').value;
+        if (!DEFAULT_EVENTS[key]) return;
+        if (!confirm(`Reset "${DEFAULT_EVENTS[key].title}" to original settings?`)) return;
+
+        state.events[key] = JSON.parse(JSON.stringify(DEFAULT_EVENTS[key]));
+        if (isFirebaseOnline && database) {
+          database.ref('counseling2026/events/' + key).set(state.events[key]);
+        }
+        saveLocalBackup();
+        loadAdminEventToForm(key);
+        renderEventsCards();
+        sfxClick();
+        showToast(`Event reset to default configuration.`, '↺');
+      });
+
+      // 1. Live Marquee Editor
+      document.getElementById('updateMarqueeForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const newText = document.getElementById('newMarqueeTextInput').value.trim();
+        if (!newText) return;
+
+        state.announcement = newText;
+        updateMarqueeDisplay(newText);
+
+        if (isFirebaseOnline && database) {
+          database.ref('counseling2026/announcement').set(newText);
+        }
+        saveLocalBackup();
+        sfxSuccess();
+        showToast('Live announcement marquee ribbon updated!', '📢');
+      });
+
+      window.setMarqueePreset = function(type) {
+        const input = document.getElementById('newMarqueeTextInput');
+        if (type === 1) {
+          input.value = "🏃 STRIDE 10K CHALLENGE IS LIVE! Daily goal: 10,000 steps. Remember to log and upload proof daily on this central portal! ⚡";
+        } else if (type === 2) {
+          input.value = "🏸 SMASH & CONNECT Badminton Meet: Muallimah (3 Nov, 5-7pm) & Muallim (4 Nov, 5-7pm) at Dewan Al-Falah. Bring your gear! 🏸";
+        } else if (type === 3) {
+          input.value = "🏓 PADDLE UP PICKLEBALL: Muallimah (28 Oct, 5-7pm) & Muallim (29 Oct, 5-7pm). Paddles & beginner coaching provided! 🏓";
+        } else if (type === 4) {
+          input.value = "☕ 'EMPTY CUPS CAN'T POUR: BURNOUT TANPA RASA BERSALAH' — 24 Oct (8:00 AM) at The Rhu Resort. Breakfast included! 🌅";
+        }
+        sfxClick();
+      };
+
+      // 2. Step Log Moderation Table
+      function renderAdminModerationTable() {
+        const tbody = document.getElementById('adminModerationTableBody');
+        const logs = Object.values(state.stepLogs);
+        logs.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+        document.getElementById('adminTotalLogsCount').textContent = `${logs.length} total logs`;
+
+        if (logs.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 18px; color: var(--text-muted);">
+                No step submissions recorded yet.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        let html = '';
+        logs.forEach(log => {
+          html += `
+            <tr class="table-row">
+              <td><strong>${log.date || '—'}</strong></td>
+              <td>
+                <div style="font-weight: 700; color: #ffffff;">${escapeStr(log.staffName || 'Staff')}</div>
+                <div style="font-size: 10px; color: var(--neon-blue);">ID: ${escapeStr(log.staffId)}</div>
+              </td>
+              <td><span style="color: var(--neon-mint); font-weight: 800;">${(parseInt(log.steps, 10) || 0).toLocaleString()}</span></td>
+              <td>${log.distanceKm || 0} km</td>
+              <td>
+                ${log.proofUrl ? `<button class="btn btn-mint btn-sm" style="padding: 2px 6px; font-size: 10px; min-height: 22px;" onclick="window.viewProofModal('${escapeStr(log.id)}')">View</button>` : '<span style="font-size: 10px; color: var(--text-muted);">No proof</span>'}
+              </td>
+              <td>
+                <button class="btn btn-outline btn-sm" style="padding: 2px 6px; font-size: 10px; min-height: 22px; color: var(--neon-blue); border-color: var(--neon-blue); margin-right: 4px;" onclick="window.adminEditLog('${escapeStr(log.id)}')">Edit</button>
+                <button class="btn btn-outline btn-sm" style="padding: 2px 6px; font-size: 10px; min-height: 22px; color: var(--neon-coral); border-color: var(--neon-coral);" onclick="window.adminDeleteLog('${escapeStr(log.id)}')">Delete</button>
+              </td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = html;
+      }
+
+      window.adminEditLog = function(logId) {
+        const log = state.stepLogs[logId];
+        if (!log) return;
+        const newStepsStr = prompt(`Edit step count for ${log.staffName} (${log.date}):`, log.steps);
+        if (newStepsStr === null) return;
+        const newSteps = parseInt(newStepsStr, 10);
+        if (isNaN(newSteps) || newSteps < 0) {
+          alert('Invalid step number entered.');
+          return;
+        }
+
+        log.steps = newSteps;
+        log.distanceKm = parseFloat((newSteps * 0.00075).toFixed(2));
+
+        if (isFirebaseOnline && database) {
+          database.ref('counseling2026/step_logs/' + logId).update({
+            steps: log.steps,
+            distanceKm: log.distanceKm
+          });
+        }
+        saveLocalBackup();
+        sfxSuccess();
+        showToast('Step log entry updated.', '✏️');
+        renderAdminModerationTable();
+        renderLeaderboard();
+        updatePersonalProgress();
+        updateKPIs();
+      };
+
+      window.adminDeleteLog = function(logId) {
+        if (!confirm('Are you sure you want to permanently delete this step submission?')) return;
+        if (isFirebaseOnline && database) {
+          database.ref('counseling2026/step_logs/' + logId).remove();
+        }
+        delete state.stepLogs[logId];
+        saveLocalBackup();
+        sfxClick();
+        showToast('Step log deleted.', '🗑️');
+        renderAdminModerationTable();
+        renderLeaderboard();
+        updatePersonalProgress();
+        updateKPIs();
+      };
+
+      // 3. Registered Staff Roster Table & Staff Removal Functionality
+      window.adminDeleteStaff = function(staffId) {
+        const staff = state.users[staffId];
+        const staffName = staff ? staff.name : staffId;
+        const confirmMsg = `Are you sure you want to permanently remove staff/teacher "${staffName}" (${staffId}) from the registered directory?\n\nThis will remove their profile and associated challenge entries.`;
+        if (!confirm(confirmMsg)) return;
+
+        // 1. Remove from Firebase if connected
+        if (isFirebaseOnline && database) {
+          database.ref('counseling2026/users/' + staffId).remove().catch(err => {
+            console.warn('[Firebase] Staff delete note:', err.message);
+          });
+          // Also purge any step logs submitted by this staff member
+          Object.keys(state.stepLogs).forEach(logId => {
+            if (state.stepLogs[logId] && state.stepLogs[logId].staffId === staffId) {
+              database.ref('counseling2026/step_logs/' + logId).remove().catch(err => {
+                console.warn('[Firebase] Log delete note:', err.message);
+              });
+            }
+          });
+        }
+
+        // 2. Remove from local state
+        delete state.users[staffId];
+        Object.keys(state.stepLogs).forEach(logId => {
+          if (state.stepLogs[logId] && state.stepLogs[logId].staffId === staffId) {
+            delete state.stepLogs[logId];
+          }
+        });
+
+        // 3. If currently logged in as this staff member, clear active session
+        const currentSavedId = localStorage.getItem('srtnp_staff_id');
+        if (currentSavedId === staffId) {
+          localStorage.removeItem('srtnp_staff_id');
+          localStorage.removeItem('srtnp_staff_data');
+          state.currentStaff = null;
+          headerStaffBadge.style.display = 'none';
+          btnOpenLoginModal.style.display = 'inline-flex';
+          cardStaffName.textContent = 'Guest / Unregistered';
+          cardStaffId.textContent = 'SRTNP-STAFF';
+          cardStaffPedometer.textContent = 'Tap to register';
+          cardStaffInitials.textContent = 'ST';
+        }
+
+        // 4. Save local backup and update UI
+        saveLocalBackup();
+        sfxClick();
+        showToast(`Staff member "${staffName}" removed.`, '🗑️');
+        renderAdminRosterTable();
+        renderAdminModerationTable();
+        renderLeaderboard();
+        updatePersonalProgress();
+        updateKPIs();
+      };
+
+      function renderAdminRosterTable() {
+        const tbody = document.getElementById('adminRosterTableBody');
+        const users = Object.values(state.users);
+        document.getElementById('adminTotalStaffCount').textContent = `${users.length} registered staff`;
+
+        if (users.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="7" style="text-align: center; padding: 18px; color: var(--text-muted);">
+                No staff registered yet.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        let html = '';
+        users.forEach(u => {
+          const regDate = u.registeredAt ? new Date(u.registeredAt).toLocaleDateString() : '—';
+          html += `
+            <tr class="table-row">
+              <td><strong style="color: var(--neon-mint);">${escapeStr(u.staffId)}</strong></td>
+              <td style="font-weight: 700; color: #ffffff;">${escapeStr(u.name)}</td>
+              <td><span style="color: var(--neon-blue);">${escapeStr(u.category || 'Academic')}</span></td>
+              <td><a href="tel:${escapeStr(u.phone)}" style="color: #ffffff; text-decoration: none;">${escapeStr(u.phone)}</a></td>
+              <td>${escapeStr(u.pedometerId || '—')}</td>
+              <td style="font-size: 10px; color: var(--text-muted);">${regDate}</td>
+              <td style="text-align: center;">
+                <button type="button" class="btn btn-outline btn-sm" onclick="window.adminDeleteStaff('${escapeStr(u.staffId)}')" style="padding: 2px 8px; font-size: 10px; min-height: 22px; color: var(--neon-coral); border-color: rgba(255, 77, 109, 0.4); white-space: nowrap;" title="Remove this registered staff member">
+                  🗑️ Remove
+                </button>
+              </td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = html;
+      }
+
+      // 4. Export Program Report to CSV
+      document.getElementById('btnExportCSV').addEventListener('click', function() {
+        sfxSuccess();
+
+        const staffTotals = {};
+        Object.values(state.users).forEach(u => {
+          staffTotals[u.staffId] = {
+            staffId: u.staffId,
+            name: u.name,
+            category: u.category || 'Academic',
+            phone: u.phone || '-',
+            pedometerId: u.pedometerId || 'Pedometer',
+            totalSteps: 0,
+            totalDistance: 0,
+            logCount: 0
+          };
+        });
+
+        Object.values(state.stepLogs).forEach(log => {
+          const sId = log.staffId;
+          if (!staffTotals[sId]) {
+            staffTotals[sId] = {
+              staffId: sId,
+              name: log.staffName || sId,
+              category: log.category || 'Academic',
+              phone: '-',
+              pedometerId: log.pedometerId || 'Pedometer',
+              totalSteps: 0,
+              totalDistance: 0,
+              logCount: 0
+            };
+          }
+          staffTotals[sId].totalSteps += (parseInt(log.steps, 10) || 0);
+          staffTotals[sId].totalDistance += (parseFloat(log.distanceKm) || 0);
+          staffTotals[sId].logCount++;
+        });
+
+        const sortedStaff = Object.values(staffTotals).sort((a, b) => b.totalSteps - a.totalSteps);
+
+        let csv = '=== SRTNP COUNSELING MONTH 2026: PROGRAM REPORT ===\r\n';
+        csv += `Report Generated: ${new Date().toLocaleString()}\r\n`;
+        csv += `Goal Target: 310,000 steps per participant\r\n\r\n`;
+
+        csv += '--- SECTION A: CUMULATIVE STRIDE 10K LEADERBOARD ---\r\n';
+        csv += 'Rank,Staff ID,Full Name,Category,Phone,Pedometer ID,Total Accumulated Steps,Goal Progress (%),Total Distance (KM),Submission Count\r\n';
+
+        sortedStaff.forEach((s, idx) => {
+          const rank = idx + 1;
+          const pct = Math.min(100, Math.round((s.totalSteps / GOAL_TARGET_STEPS) * 100));
+          csv += `"${rank}","${cleanCSV(s.staffId)}","${cleanCSV(s.name)}","${cleanCSV(s.category)}","${cleanCSV(s.phone)}","${cleanCSV(s.pedometerId)}",${s.totalSteps},${pct}%,${s.totalDistance.toFixed(2)},${s.logCount}\r\n`;
+        });
+
+        csv += '\r\n--- SECTION B: STEP SUBMISSION AUDIT LOGS ---\r\n';
+        csv += 'Log ID,Date,Staff ID,Staff Name,Steps,Distance (KM),Has Proof Image,Timestamp\r\n';
+
+        const logs = Object.values(state.stepLogs).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+        logs.forEach(log => {
+          const hasProof = log.proofUrl ? 'YES' : 'NO';
+          csv += `"${cleanCSV(log.id)}","${cleanCSV(log.date)}","${cleanCSV(log.staffId)}","${cleanCSV(log.staffName)}",${log.steps},${log.distanceKm || 0},"${hasProof}","${new Date(log.timestamp || Date.now()).toISOString()}"\r\n`;
+        });
+
+        const blob = new Blob([csv], { type: 'text/calendar;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `SRTNP_Counseling_Month_2026_Report_${new Date().toISOString().split('T')[0]}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast('Program CSV Report downloaded.', '📥');
+      });
+
+      function cleanCSV(str) {
+        if (!str) return '';
+        return String(str).replace(/"/g, '""');
+      }
+
+      function escapeStr(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      // ----------------------------------------------------
+      // 15. MOBILE BOTTOM NAVIGATION ACTIVE HIGHLIGHTER
+      // ----------------------------------------------------
+      const mobileNavItems = document.querySelectorAll('.mobile-bottom-nav .mobile-nav-item[data-target]');
+      window.addEventListener('scroll', function() {
+        const scrollY = window.scrollY;
+        const eventsSec = document.getElementById('events');
+        const trackerSec = document.getElementById('tracker');
+        const leaderboardSec = document.getElementById('leaderboard');
+
+        if (!eventsSec || !trackerSec || !leaderboardSec) return;
+
+        let activeTarget = 'events';
+        const offset = 200;
+        if (scrollY >= leaderboardSec.offsetTop - offset) {
+          activeTarget = 'leaderboard';
+        } else if (scrollY >= trackerSec.offsetTop - offset) {
+          activeTarget = 'tracker';
+        } else {
+          activeTarget = 'events';
+        }
+
+        mobileNavItems.forEach(item => {
+          if (item.getAttribute('data-target') === activeTarget) {
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
+        });
+      }, { passive: true });
+
+      // ----------------------------------------------------
+      // 16. MINIMALIST TRON THEME SONG PLAYER (FORT MINOR - REMEMBER THE NAME)
+      // Pure, lightweight YouTube theme song player with Autoplay
+      // ----------------------------------------------------
+      const YT_SONG_VIDEO_ID = "FXITAw5nY8I"; // Fort Minor - Remember The Name
+      let ytAudioPlayer = null;
+      let isYtPlayerReady = false;
+      let isSongPlaying = true; // Default to autoplay
+      let isSongMuted = false;
+
+      function initYouTubeAudio() {
+        if (ytAudioPlayer || typeof YT === 'undefined' || !YT.Player) return;
+        try {
+          const iframeEl = document.getElementById('ytVideoPlayerIframe');
+          if (!iframeEl) return;
+
+          ytAudioPlayer = new YT.Player('ytVideoPlayerIframe', {
+            events: {
+              onReady: function(event) {
+                isYtPlayerReady = true;
+                try {
+                  event.target.playVideo();
+                } catch (e) {}
+                setSongPlayUI(true);
+                updateMusicStatus('Playing: Fort Minor');
+              },
+              onStateChange: function(event) {
+                if (event.data === YT.PlayerState.PLAYING) {
+                  setSongPlayUI(true);
+                  updateMusicStatus('Playing: Fort Minor');
+                } else if (event.data === YT.PlayerState.PAUSED) {
+                  setSongPlayUI(false);
+                  updateMusicStatus('Paused · Tap ▶');
+                } else if (event.data === YT.PlayerState.ENDED) {
+                  setSongPlayUI(false);
+                  updateMusicStatus('Fort Minor · Replay ▶');
+                } else if (event.data === YT.PlayerState.BUFFERING) {
+                  updateMusicStatus('Buffering song...');
+                }
+              },
+              onError: function(err) {
+                console.warn('[YouTube Player Error]: Code', err ? err.data : '');
+                setSongPlayUI(false);
+                updateMusicStatus('Tap ↗ to listen on YouTube');
+                showToast('Playback restricted by network. Click ↗ to open on YouTube!', '↗');
+              }
+            }
+          });
+        } catch (e) {
+          console.warn('[YouTube API Mount Notice]:', e);
+        }
+      }
+
+      window.__initYouTubeAudio = initYouTubeAudio;
+      if (window.__ytReady || (typeof YT !== 'undefined' && YT.Player)) {
+        setTimeout(initYouTubeAudio, 100);
+      }
+
+      // Autoplay gesture unlock: if browser held unmuted autoplay, first page touch/click/scroll seamlessly starts audio
+      function triggerAutoplayStart() {
+        if (isSongPlaying) {
+          if (ytAudioPlayer && typeof ytAudioPlayer.playVideo === 'function') {
+            try { ytAudioPlayer.playVideo(); } catch (e) {}
+          }
+        }
+      }
+      ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+        window.addEventListener(evt, triggerAutoplayStart, { once: true, passive: true });
+      });
+
+      function updateMusicStatus(txt) {
+        const statusEl = document.getElementById('musicStatusText');
+        if (statusEl) statusEl.textContent = txt;
+      }
+
+      function setSongPlayUI(playing) {
+        isSongPlaying = playing;
+        const capsule = document.getElementById('cyberMusicCapsule');
+        const icon = document.getElementById('musicPlayIcon');
+
+        if (playing) {
+          if (capsule) capsule.classList.add('playing');
+          if (icon) icon.textContent = '⏸';
+        } else {
+          if (capsule) capsule.classList.remove('playing');
+          if (icon) icon.textContent = '▶';
+        }
+      }
+
+      function toggleSongPlayback() {
+        sfxClick();
+
+        if (isSongPlaying) {
+          // Pause
+          if (ytAudioPlayer && typeof ytAudioPlayer.pauseVideo === 'function') {
+            try { ytAudioPlayer.pauseVideo(); } catch (e) {}
+          } else {
+            const iframe = document.getElementById('ytVideoPlayerIframe');
+            if (iframe && iframe.contentWindow) {
+              iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            }
+          }
+          setSongPlayUI(false);
+          updateMusicStatus('Paused · Tap ▶ to play');
+          showToast('Theme song paused.', '⏸');
+        } else {
+          // Play
+          let played = false;
+          if (ytAudioPlayer && typeof ytAudioPlayer.playVideo === 'function') {
+            try {
+              ytAudioPlayer.playVideo();
+              played = true;
+            } catch (err) {
+              console.warn('playVideo threw:', err);
+            }
+          }
+
+          if (!played) {
+            const iframe = document.getElementById('ytVideoPlayerIframe');
+            if (iframe) {
+              iframe.src = `https://www.youtube-nocookie.com/embed/${YT_SONG_VIDEO_ID}?enablejsapi=1&autoplay=1&playsinline=1&rel=0&modestbranding=1`;
+            }
+          }
+
+          setSongPlayUI(true);
+          updateMusicStatus('Playing: Fort Minor');
+          showToast('Playing: Fort Minor – Remember The Name', '🎶');
+        }
+      }
+
+      function toggleSongMute() {
+        sfxClick();
+        isSongMuted = !isSongMuted;
+        const icon = document.getElementById('musicMuteIcon');
+
+        if (isSongMuted) {
+          if (ytAudioPlayer && typeof ytAudioPlayer.mute === 'function') {
+            try { ytAudioPlayer.mute(); } catch (e) {}
+          }
+          if (icon) icon.textContent = '🔇';
+          showToast('Theme song muted.', '🔇');
+        } else {
+          if (ytAudioPlayer && typeof ytAudioPlayer.unMute === 'function') {
+            try { ytAudioPlayer.unMute(); } catch (e) {}
+          }
+          if (icon) icon.textContent = '🔊';
+          showToast('Theme song unmuted.', '🔊');
+        }
+      }
+
+      function toggleSongCollapse(e) {
+        if (e) e.stopPropagation();
+        sfxClick();
+        const capsule = document.getElementById('cyberMusicCapsule');
+        if (!capsule) return;
+        capsule.classList.toggle('collapsed');
+        const isCollapsed = capsule.classList.contains('collapsed');
+        const collapseIcon = document.getElementById('musicCollapseIcon');
+        if (collapseIcon) collapseIcon.textContent = isCollapsed ? '+' : '−';
+      }
+
+      const musicPlayBtn = document.getElementById('musicPlayBtn');
+      const musicMuteBtn = document.getElementById('musicMuteBtn');
+      const musicCollapseBtn = document.getElementById('musicCollapseBtn');
+      const cyberMusicCapsule = document.getElementById('cyberMusicCapsule');
+
+      if (musicPlayBtn) musicPlayBtn.addEventListener('click', toggleSongPlayback);
+      if (musicMuteBtn) musicMuteBtn.addEventListener('click', toggleSongMute);
+      if (musicCollapseBtn) musicCollapseBtn.addEventListener('click', toggleSongCollapse);
+
+      if (cyberMusicCapsule) {
+        cyberMusicCapsule.addEventListener('click', function(e) {
+          if (this.classList.contains('collapsed')) {
+            this.classList.remove('collapsed');
+            const collapseIcon = document.getElementById('musicCollapseIcon');
+            if (collapseIcon) collapseIcon.textContent = '−';
+            sfxClick();
+          }
+        });
+      }
+
+      // ----------------------------------------------------
+      // 17. INITIALIZE APPLICATION
+      // ----------------------------------------------------
+      initStaffSession();
+      setupFirebaseListeners();
+      renderEventsCards();
+      loadAdminEventToForm('stride');
+      updateKPIs();
+      renderLeaderboard();
+
+    })();
+  </script>
+</body>
+</html>
